@@ -12,6 +12,25 @@
         <title>Movie Database</title>
     </head>
     <body>
-    <center><h1>Movie Database</h1></center>
+    <center><h1>Movie Database</h1>
+    <p>Peter Rose</p>
+    <p>Pryana Lewis</p>
+    <p>Mikael Fontanez</p>
+    <p>Andrew Mon</p>
+    </center>
+    
+    <div style =" margin-top: 80px" align = "center">
+        <p> Search Movie Database for Actor, Movie, Composer, or Director </p>
+        <div style align = "center">
+        <label><input type="radio" name="Selection" value="" checked="checked" />Movie</label>
+        <label><input type="radio" name="Selection" value="" checked="checked" />Actor/Actress</label>
+        <label><input type="radio" name="Selection" value="" checked="checked" />Director</label>
+        <label><input type="radio" name="Selection" value="" checked="checked" />Composer</label>
+        </div>
+        <form name="Search bar input" action="search.jsp" method="POST">
+            <input type="text" name="Search bar" value="" size="50px" />
+            <input type="submit" value="Search" name="Search button" />
+        </form>
+    </div>
     </body>
 </html>
