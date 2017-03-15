@@ -9,9 +9,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Movie Database</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+    <center><h1>Movie Database</h1></center>
     </body>
 </html>
