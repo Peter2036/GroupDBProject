@@ -19,7 +19,7 @@
     <p>Andrew Mon</p>
     </center>
     
-    <div style =" margin-top: 80px" align = "center">
+    <div style ="margin-top: 80px" align = "center">
         <p> Search Movie Database for Actor, Movie, Composer, or Director </p>
         <div style align = "center">
         <label><input type="radio" name="Selection" value="" checked="checked" />Movie</label>
