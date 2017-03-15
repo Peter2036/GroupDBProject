@@ -15,7 +15,7 @@
     <center><h1>Movie Database</h1>
     <p>Peter Rose</p>
     <p>Pryana Lewis</p>
-    <p>Mikael Fontanez</p>
+    <p>Mikael F</p>
     <p>Andrew Mon</p>
     </center>
     
