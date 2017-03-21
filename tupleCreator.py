@@ -53,7 +53,6 @@ def insertIntoWrites_for(file, movie_id, writer_id):
 if __name__ == "__main__":
     file = open("tupleRecords.txt", 'w')
     ia = imdb.IMDb(accessSystem = 'http', adultSearch = 0)
-    ia.get_person_infoset()
     for i in range(133093, 9999999):
         movie = ia.get_movie(str(i))
         ia.update(movie)
@@ -136,4 +135,5 @@ if __name__ == "__main__":
             
         except KeyError:
             pass
+
     file.close()
