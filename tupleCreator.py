@@ -55,7 +55,7 @@ def insertIntoWrites_for(file, movie_id, writer_id):
 if __name__ == "__main__":
     file = open("tupleRecords.txt", 'w')
     ia = imdb.IMDb(accessSystem = 'http', adultSearch = 0)
-    for i in range(6144000, 9999999):
+    for i in range(25, 9999999):
         movie = ia.get_movie(str(i))
         ia.update(movie)
         print "movieID: " + str(i)
