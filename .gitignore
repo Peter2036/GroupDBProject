@@ -1,2 +1,4 @@
 nbproject/
 .vscode/
+build/web/WEB-INF/glassfish-resources.xml
+web/WEB-INF/glassfish-resources.xml
