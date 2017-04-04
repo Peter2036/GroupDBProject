@@ -5,10 +5,72 @@
             30
         </session-timeout>
     </session-config>
+    
     <resource-ref>
         <res-ref-name>jdbc/group</res-ref-name>
         <res-type>javax.sql.ConnectionPoolDataSource</res-type>
         <res-auth>Container</res-auth>
         <res-sharing-scope>Shareable</res-sharing-scope>
     </resource-ref>
+    
+    <servlet>  
+        <servlet-name>Searchbar</servlet-name>  
+        <servlet-class>Searchbar</servlet-class>  
+    </servlet>  
+    
+    <servlet-mapping>  
+        <servlet-name>Searchbar</servlet-name>  
+        <url-pattern>/Searchbar</url-pattern>  
+    </servlet-mapping>  
+    
+    <servlet>  
+        <servlet-name>stats</servlet-name>  
+        <servlet-class>stats</servlet-class>  
+    </servlet>  
+    
+    <servlet-mapping>  
+        <servlet-name>stats</servlet-name>  
+        <url-pattern>/stats</url-pattern>  
+    </servlet-mapping>  
+    
+    <servlet>  
+        <servlet-name>records</servlet-name>  
+        <servlet-class>records</servlet-class>  
+    </servlet>  
+    
+    <servlet-mapping>  
+        <servlet-name>records</servlet-name>  
+        <url-pattern>/records</url-pattern>  
+    </servlet-mapping> 
+    
+     <servlet>  
+        <servlet-name>home</servlet-name>  
+        <servlet-class>home</servlet-class>  
+    </servlet>  
+    
+    <servlet-mapping>  
+        <servlet-name>home</servlet-name>  
+        <url-pattern>/home</url-pattern>  
+    </servlet-mapping>   
+    
+    <servlet>  
+        <servlet-name>pagePersonLinker</servlet-name>  
+        <servlet-class>pagePersonLinker</servlet-class>  
+    </servlet>  
+    
+    <servlet-mapping>  
+        <servlet-name>pagePersonLinker</servlet-name>  
+        <url-pattern>/pagePersonLinker</url-pattern>  
+    </servlet-mapping>   
+    
+    <servlet>  
+        <servlet-name>pageMovieLinker</servlet-name>  
+        <servlet-class>pageMovieLinker</servlet-class>  
+    </servlet>  
+    
+    <servlet-mapping>  
+        <servlet-name>pageMovieLinker</servlet-name>  
+        <url-pattern>/pageMovieLinker</url-pattern>  
+    </servlet-mapping>   
+    
 </web-app>
