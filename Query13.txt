@@ -1,0 +1,20 @@
+//Does the same thing as Query11 and Query12 but for a selected writer.
+
+select w1.writer_ID as T1, b.name as Writers
+from writes_for w1, writes_for w2, writers b
+where w1.writer_ID <> w2.writer_ID
+and w1.movie_ID = w2.movie_ID
+and w2.writer_ID = b.writer_ID
+and w1.writer_ID = 4785015;
+
+select writer_ID as T1, b.name as Stars
+from writes_for w, stars_in s, stars b
+where w.movie_ID = s.movie_ID
+and s.star_ID = b.star_ID
+and writer_ID = 4785015;
+
+select writer_ID as T1, b.name as Directors
+from writes_for w, directs d, directors b
+where w.movie_ID = d.movie_ID
+and d.director_ID = b.director_ID
+and writer_ID = 4785015;

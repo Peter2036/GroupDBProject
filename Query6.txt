@@ -1,0 +1,47 @@
+//Gives the amount of directors, writers, and stars, a selected star has worked with in his/her career.
+
+select SW.star_ID, fellowD, fellowW, fellowS
+from
+((select count(*) as fellowD, star_ID
+from directs d, stars_in s
+where d.movie_ID = s.movie_ID
+group by star_ID)
+union
+(select 0 as fellowD, star_ID
+from stars_in b
+where not exists (select count(*) as fellowD, star_ID
+from directs d, stars_in s
+where d.movie_ID = s.movie_ID
+and b.star_ID = s.star_ID
+group by star_ID))) SD,
+((select count(*) as fellowW, star_ID
+from writes_for w, stars_in s
+where w.movie_ID = s.movie_ID
+group by star_ID)
+union
+(select 0 as fellowW, star_ID
+from stars_in b
+where not exists (select count(*) as fellowW, star_ID
+from writes_for w, stars_in s
+where w.movie_ID = s.movie_ID
+and b.star_ID = s.star_ID
+group by star_ID))) SW,
+((select count(*) as fellowS, s1.star_ID
+from stars_in s1, stars_in s2
+where s1.movie_ID = s2.movie_ID
+and s1.star_ID <> s2.star_ID
+group by s1.star_ID)
+union
+(select 0 as fellowS, b.star_ID
+from stars_in b
+where not exists (select count(*) as fellowS, s1.star_ID
+from stars_in s1, stars_in s2
+where s1.movie_ID = s2.movie_ID
+and s1.star_ID <> s2.star_ID
+and b.star_ID = s1.star_ID
+group by s1.star_ID))) SS,
+stars s
+where SD.star_ID = SW.star_ID
+and SW.star_ID = SS.star_ID
+and SW.star_ID = s.star_ID
+and s.star_ID = 1291955;

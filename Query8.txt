@@ -1,0 +1,47 @@
+//Does the same thing as Query6 and Query7 but for a selected writer.
+
+select SW.writer_ID, fellowD, fellowW, fellowS 
+from
+((select count(*) as fellowD, w.writer_ID
+from directs d, writes_for w
+where d.movie_ID = w.movie_ID
+group by w.writer_ID)
+union
+(select 0 as fellowD, writer_ID
+from writes_for b
+where not exists (select count(*) as fellowD, w.writer_ID
+from directs d, writes_for w
+where d.movie_ID = w.movie_ID
+and b.writer_ID = w.writer_ID
+group by w.writer_ID))) SD,
+((select count(*) as fellowW, w1.writer_ID
+from writes_for w1, writes_for w2
+where w1.movie_ID = w2.movie_ID
+and w1.writer_ID <> w2.writer_ID
+group by w1.writer_ID)
+union
+(select 0 as fellowW, writer_ID
+from writes_for b
+where not exists (select count(*) as fellowW, w1.writer_ID
+from writes_for w1, writes_for w2
+where w1.movie_ID = w2.movie_ID
+and w1.writer_ID <> w2.writer_ID
+and b.writer_ID = w1.writer_ID
+group by w1.writer_ID))) SW,
+((select count(*) as fellowS, w.writer_ID
+from stars_in s, writes_for w
+where s.movie_ID = w.movie_ID
+group by w.writer_ID)
+union
+(select 0 as fellowS, writer_ID
+from writes_for b
+where not exists (select count(*) as fellowS, w.writer_ID
+from stars_in s, writes_for w
+where s.movie_ID = w.movie_ID
+and b.writer_ID = w.writer_ID
+group by writer_ID))) SS,
+writers w
+where SD.writer_ID = SW.writer_ID
+and SW.writer_ID = SS.writer_ID
+and SW.writer_ID = w.writer_ID
+and w.writer_ID = 4785015;

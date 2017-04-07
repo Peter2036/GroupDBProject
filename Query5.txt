@@ -1,0 +1,187 @@
+//Does the same thing as Query3 and Query4 but for a selected writer.
+
+select ten.writer_ID, Total,
+((zeroOne/Total) * 100) as "0-1/NULL",
+((oneTwo/Total) * 100) as "1-2",
+((twoThree/Total) * 100) as "2-3",
+((threeFour/Total) * 100) as "3-4",
+((fourFive/Total) * 100) as "4-5",
+((fiveSix/Total) * 100) as "5-6",
+((sixSeven/Total) * 100) as "6-7",
+((sevenEight/Total) * 100) as "7-8",
+((eightNine/Total) * 100) as "8-9",
+((nineTen/Total) * 100) as "9-10"
+from 
+((select count(*) as nineTen, writer_ID
+from movies m, writes_for s
+where m.movie_ID = s.movie_ID
+and nvl(m.rating, 0) > 9
+group by writer_ID)
+union
+(select 0 as nineTen, writer_ID
+from writes_for p
+where not exists (select count(*) as nineTen, writer_ID
+from movies m, writes_for s
+where m.movie_ID = s.movie_ID
+and s.writer_ID = p.writer_ID
+and nvl(m.rating, 0) > 9
+group by writer_ID))) ten, 
+(select count(*) as Total, writer_ID
+from movies m, writes_for s
+where m.movie_ID = s.movie_ID
+group by writer_ID) tot,
+((select count(*) as eightNine, writer_ID
+from movies m, writes_for s
+where m.movie_ID = s.movie_ID
+and nvl(m.rating, 0) > 8
+and nvl(m.rating, 0) <= 9
+group by writer_ID)
+union
+(select 0 as eightNine, writer_ID
+from writes_for p
+where not exists (select count(*) as eightNine, writer_ID
+from movies m, writes_for s
+where m.movie_ID = s.movie_ID
+and s.writer_ID = p.writer_ID
+and nvl(m.rating, 0) > 8
+and nvl(m.rating, 0) <= 9
+group by writer_ID))) nine,
+((select count(*) as sevenEight, writer_ID
+from movies m, writes_for s
+where m.movie_ID = s.movie_ID
+and nvl(m.rating, 0) > 7
+and nvl(m.rating, 0) <= 8
+group by writer_ID)
+union
+(select 0 as sevenEight, writer_ID
+from writes_for p
+where not exists (select count(*) as sevenEight, writer_ID
+from movies m, writes_for s
+where m.movie_ID = s.movie_ID
+and s.writer_ID = p.writer_ID
+and nvl(m.rating, 0) > 7
+and nvl(m.rating, 0) <= 8
+group by writer_ID))) eight,
+((select count(*) as sixSeven, writer_ID
+from movies m, writes_for s
+where m.movie_ID = s.movie_ID
+and nvl(m.rating, 0) > 6
+and nvl(m.rating, 0) <= 7
+group by writer_ID)
+union
+(select 0 as sixSeven, writer_ID
+from writes_for p
+where not exists (select count(*) as sixSeven, writer_ID
+from movies m, writes_for s
+where m.movie_ID = s.movie_ID
+and s.writer_ID = p.writer_ID
+and nvl(m.rating, 0) > 6
+and nvl(m.rating, 0) <= 7
+group by writer_ID))) seven,
+((select count(*) as fiveSix, writer_ID
+from movies m, writes_for s
+where m.movie_ID = s.movie_ID
+and nvl(m.rating, 0) > 5
+and nvl(m.rating, 0) <= 6
+group by writer_ID)
+union
+(select 0 as fiveSix, writer_ID
+from writes_for p
+where not exists (select count(*) as fiveSix, writer_ID
+from movies m, writes_for s
+where m.movie_ID = s.movie_ID
+and s.writer_ID = p.writer_ID
+and nvl(m.rating, 0) > 5
+and nvl(m.rating, 0) <= 6
+group by writer_ID))) six,
+((select count(*) as fourFive, writer_ID
+from movies m, writes_for s
+where m.movie_ID = s.movie_ID
+and nvl(m.rating, 0) > 4
+and nvl(m.rating, 0) <= 5
+group by writer_ID)
+union
+(select 0 as fourFive, writer_ID
+from writes_for p
+where not exists (select count(*) as fourFive, writer_ID
+from movies m, writes_for s
+where m.movie_ID = s.movie_ID
+and s.writer_ID = p.writer_ID
+and nvl(m.rating, 0) > 4
+and nvl(m.rating, 0) <= 5
+group by writer_ID))) five,
+((select count(*) as threeFour, writer_ID
+from movies m, writes_for s
+where m.movie_ID = s.movie_ID
+and nvl(m.rating, 0) > 3
+and nvl(m.rating, 0) <= 4
+group by writer_ID)
+union
+(select 0 as threeFour, writer_ID
+from writes_for p
+where not exists (select count(*) as threeFour, writer_ID
+from movies m, writes_for s
+where m.movie_ID = s.movie_ID
+and s.writer_ID = p.writer_ID
+and nvl(m.rating, 0) > 3
+and nvl(m.rating, 0) <= 4
+group by writer_ID))) four,
+((select count(*) as twoThree, writer_ID
+from movies m, writes_for s
+where m.movie_ID = s.movie_ID
+and nvl(m.rating, 0) > 2
+and nvl(m.rating, 0) <= 3
+group by writer_ID)
+union
+(select 0 as twoThree, writer_ID
+from writes_for p
+where not exists (select count(*) as twoThree, writer_ID
+from movies m, writes_for s
+where m.movie_ID = s.movie_ID
+and s.writer_ID = p.writer_ID
+and nvl(m.rating, 0) > 2
+and nvl(m.rating, 0) <= 3
+group by writer_ID))) three,
+((select count(*) as oneTwo, writer_ID
+from movies m, writes_for s
+where m.movie_ID = s.movie_ID
+and nvl(m.rating, 0) > 1
+and nvl(m.rating, 0) <= 2
+group by writer_ID)
+union
+(select 0 as oneTwo, writer_ID
+from writes_for p
+where not exists (select count(*) as oneTwo, writer_ID
+from movies m, writes_for s
+where m.movie_ID = s.movie_ID
+and s.writer_ID = p.writer_ID
+and nvl(m.rating, 0) > 1
+and nvl(m.rating, 0) <= 2
+group by writer_ID))) two,
+((select count(*) as zeroOne, writer_ID
+from movies m, writes_for s
+where m.movie_ID = s.movie_ID
+and nvl(m.rating, 0) >= 0
+and nvl(m.rating, 0) <= 1
+group by writer_ID)
+union
+(select 0 as zeroOne, writer_ID
+from writes_for p
+where not exists (select count(*) as zeroOne, writer_ID
+from movies m, writes_for s
+where m.movie_ID = s.movie_ID
+and s.writer_ID = p.writer_ID
+and nvl(m.rating, 0) >= 0
+and nvl(m.rating, 0) <= 1
+group by writer_ID))) one
+where ten.writer_ID = tot.writer_ID
+and nine.writer_ID = tot.writer_ID
+and eight.writer_ID = tot.writer_ID
+and seven.writer_ID = tot.writer_ID
+and six.writer_ID = tot.writer_ID
+and five.writer_ID = tot.writer_ID
+and four.writer_ID = tot.writer_ID
+and three.writer_ID = tot.writer_ID
+and two.writer_ID = tot.writer_ID
+and one.writer_ID = tot.writer_ID
+and one.writer_ID = 3036675;

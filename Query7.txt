@@ -1,0 +1,47 @@
+//Does the same thing as Query6 but for a selected director.
+
+select SW.director_ID, fellowD, fellowW, fellowS
+from
+((select count(*) as fellowD, d.director_ID
+from directs d, directs d2
+where d.movie_ID = d2.movie_ID
+and d.director_ID <> d2.director_ID
+group by d.director_ID)
+union
+(select 0 as fellowD, director_ID
+from directs b
+where not exists (select count(*) as fellowD, d.director_ID
+from directs d, directs d2
+where d.movie_ID = d2.movie_ID
+and d.director_ID <> d2.director_ID
+and b.director_ID = d.director_ID
+group by d.director_ID))) SD,
+((select count(*) as fellowW, director_ID
+from writes_for w, directs d
+where w.movie_ID = d.movie_ID
+group by director_ID)
+union
+(select 0 as fellowW, director_ID
+from directs b
+where not exists (select count(*) as fellowW, director_ID
+from writes_for w, directs d
+where w.movie_ID = d.movie_ID
+and b.director_ID = d.director_ID
+group by director_ID))) SW,
+((select count(*) as fellowS, director_ID
+from stars_in s, directs d
+where s.movie_ID = d.movie_ID
+group by director_ID)
+union
+(select 0 as fellowS, director_ID
+from directs b
+where not exists (select count(*) as fellowS, director_ID
+from stars_in s, directs d
+where s.movie_ID = d.movie_ID
+and b.director_ID = d.director_ID
+group by director_ID))) SS,
+directors d
+where SD.director_ID = SW.director_ID
+and SW.director_ID = SS.director_ID
+and SW.director_ID = d.director_ID
+and d.director_ID = 52993;

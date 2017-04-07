@@ -1,0 +1,8 @@
+//Gives all the movie titles filmed in the same country and debuted in the same year as a selected movie.
+
+select distinct m1.movie_ID as T1, m2.title as T2, m1.country, m1.release_year
+from movies m1, movies m2
+where m1.movie_ID <> m2.movie_ID
+and m1.country = m2.country
+and m1.release_year = m2.release_year
+and m1.movie_ID = 2123146;
