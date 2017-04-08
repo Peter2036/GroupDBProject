@@ -1,0 +1,14 @@
+//Ranks all the movies by rating and then orders those with the same rating, by votes
+
+select movie_ID, title, nvl(rating, 0) as Rating, nvl(votes, 0) as Votes
+from movies
+order by rating desc, votes desc;
+
+
+//Gives the rank found in query above for a selected movie_ID
+
+select movie_ID, Rank
+from (select Rownum as Rank, a.* from (select movie_ID, title, nvl(rating, 0), nvl(votes, 0)
+from movies
+order by rating desc, votes desc) a)
+where movie_ID = 2112157;

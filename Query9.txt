@@ -1,0 +1,45 @@
+//Gives the amount of directors, writers, and stars a selected movie has.
+
+select MW.movie_ID, D, W, S
+from
+((select count(*) as D, m.movie_ID
+from directs d, movies m
+where d.movie_ID = m.movie_ID
+group by m.movie_ID)
+union
+(select 0 as D, b.movie_ID
+from movies b
+where not exists (select count(*) as D, m.movie_ID
+from directs d, movies m
+where d.movie_ID = m.movie_ID
+and b.movie_ID = m.movie_ID
+group by m.movie_ID))) MD,
+((select count(*) as W, m.movie_ID
+from writes_for w, movies m
+where w.movie_ID = m.movie_ID
+group by m.movie_ID)
+union
+(select 0 as W, b.movie_ID
+from movies b
+where not exists (select count(*) as W, m.movie_ID
+from writes_for w, movies m
+where w.movie_ID = m.movie_ID
+and b.movie_ID = m.movie_ID
+group by m.movie_ID))) MW,
+((select count(*) as S, m.movie_ID
+from movies m, stars_in s
+where m.movie_ID = s.movie_ID
+group by m.movie_ID)
+union
+(select 0 as S, b.movie_ID
+from movies b
+where not exists (select count(*) as S, m.movie_ID
+from movies m, stars_in s
+where m.movie_ID = s.movie_ID
+and b.movie_ID = m.movie_ID
+group by m.movie_ID))) MS,
+movies m
+where MD.movie_ID = MW.movie_ID
+and MW.movie_ID = MS.movie_ID
+and MW.movie_ID = m.movie_ID
+and m.movie_ID = 2123146;

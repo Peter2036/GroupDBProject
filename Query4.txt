@@ -1,0 +1,187 @@
+//Does the same thing as Query3 but for a selected director.
+
+select ten.director_ID, Total,
+((zeroOne/Total) * 100) as "0-1/NULL",
+((oneTwo/Total) * 100) as "1-2",
+((twoThree/Total) * 100) as "2-3",
+((threeFour/Total) * 100) as "3-4",
+((fourFive/Total) * 100) as "4-5",
+((fiveSix/Total) * 100) as "5-6",
+((sixSeven/Total) * 100) as "6-7",
+((sevenEight/Total) * 100) as "7-8",
+((eightNine/Total) * 100) as "8-9",
+((nineTen/Total) * 100) as "9-10"
+from 
+((select count(*) as nineTen, director_ID
+from movies m, directs s
+where m.movie_ID = s.movie_ID
+and nvl(m.rating, 0) > 9
+group by director_ID)
+union
+(select 0 as nineTen, director_ID
+from directs p
+where not exists (select count(*) as nineTen, director_ID
+from movies m, directs s
+where m.movie_ID = s.movie_ID
+and s.director_ID = p.director_ID
+and nvl(m.rating, 0) > 9
+group by director_ID))) ten, 
+(select count(*) as Total, director_ID
+from movies m, directs s
+where m.movie_ID = s.movie_ID
+group by director_ID) tot,
+((select count(*) as eightNine, director_ID
+from movies m, directs s
+where m.movie_ID = s.movie_ID
+and nvl(m.rating, 0) > 8
+and nvl(m.rating, 0) <= 9
+group by director_ID)
+union
+(select 0 as eightNine, director_ID
+from directs p
+where not exists (select count(*) as eightNine, director_ID
+from movies m, directs s
+where m.movie_ID = s.movie_ID
+and s.director_ID = p.director_ID
+and nvl(m.rating, 0) > 8
+and nvl(m.rating, 0) <= 9
+group by director_ID))) nine,
+((select count(*) as sevenEight, director_ID
+from movies m, directs s
+where m.movie_ID = s.movie_ID
+and nvl(m.rating, 0) > 7
+and nvl(m.rating, 0) <= 8
+group by director_ID)
+union
+(select 0 as sevenEight, director_ID
+from directs p
+where not exists (select count(*) as sevenEight, director_ID
+from movies m, directs s
+where m.movie_ID = s.movie_ID
+and s.director_ID = p.director_ID
+and nvl(m.rating, 0) > 7
+and nvl(m.rating, 0) <= 8
+group by director_ID))) eight,
+((select count(*) as sixSeven, director_ID
+from movies m, directs s
+where m.movie_ID = s.movie_ID
+and nvl(m.rating, 0) > 6
+and nvl(m.rating, 0) <= 7
+group by director_ID)
+union
+(select 0 as sixSeven, director_ID
+from directs p
+where not exists (select count(*) as sixSeven, director_ID
+from movies m, directs s
+where m.movie_ID = s.movie_ID
+and s.director_ID = p.director_ID
+and nvl(m.rating, 0) > 6
+and nvl(m.rating, 0) <= 7
+group by director_ID))) seven,
+((select count(*) as fiveSix, director_ID
+from movies m, directs s
+where m.movie_ID = s.movie_ID
+and nvl(m.rating, 0) > 5
+and nvl(m.rating, 0) <= 6
+group by director_ID)
+union
+(select 0 as fiveSix, director_ID
+from directs p
+where not exists (select count(*) as fiveSix, director_ID
+from movies m, directs s
+where m.movie_ID = s.movie_ID
+and s.director_ID = p.director_ID
+and nvl(m.rating, 0) > 5
+and nvl(m.rating, 0) <= 6
+group by director_ID))) six,
+((select count(*) as fourFive, director_ID
+from movies m, directs s
+where m.movie_ID = s.movie_ID
+and nvl(m.rating, 0) > 4
+and nvl(m.rating, 0) <= 5
+group by director_ID)
+union
+(select 0 as fourFive, director_ID
+from directs p
+where not exists (select count(*) as fourFive, director_ID
+from movies m, directs s
+where m.movie_ID = s.movie_ID
+and s.director_ID = p.director_ID
+and nvl(m.rating, 0) > 4
+and nvl(m.rating, 0) <= 5
+group by director_ID))) five,
+((select count(*) as threeFour, director_ID
+from movies m, directs s
+where m.movie_ID = s.movie_ID
+and nvl(m.rating, 0) > 3
+and nvl(m.rating, 0) <= 4
+group by director_ID)
+union
+(select 0 as threeFour, director_ID
+from directs p
+where not exists (select count(*) as threeFour, director_ID
+from movies m, directs s
+where m.movie_ID = s.movie_ID
+and s.director_ID = p.director_ID
+and nvl(m.rating, 0) > 3
+and nvl(m.rating, 0) <= 4
+group by director_ID))) four,
+((select count(*) as twoThree, director_ID
+from movies m, directs s
+where m.movie_ID = s.movie_ID
+and nvl(m.rating, 0) > 2
+and nvl(m.rating, 0) <= 3
+group by director_ID)
+union
+(select 0 as twoThree, director_ID
+from directs p
+where not exists (select count(*) as twoThree, director_ID
+from movies m, directs s
+where m.movie_ID = s.movie_ID
+and s.director_ID = p.director_ID
+and nvl(m.rating, 0) > 2
+and nvl(m.rating, 0) <= 3
+group by director_ID))) three,
+((select count(*) as oneTwo, director_ID
+from movies m, directs s
+where m.movie_ID = s.movie_ID
+and nvl(m.rating, 0) > 1
+and nvl(m.rating, 0) <= 2
+group by director_ID)
+union
+(select 0 as oneTwo, director_ID
+from directs p
+where not exists (select count(*) as oneTwo, director_ID
+from movies m, directs s
+where m.movie_ID = s.movie_ID
+and s.director_ID = p.director_ID
+and nvl(m.rating, 0) > 1
+and nvl(m.rating, 0) <= 2
+group by director_ID))) two,
+((select count(*) as zeroOne, director_ID
+from movies m, directs s
+where m.movie_ID = s.movie_ID
+and nvl(m.rating, 0) >= 0
+and nvl(m.rating, 0) <= 1
+group by director_ID)
+union
+(select 0 as zeroOne, director_ID
+from directs p
+where not exists (select count(*) as zeroOne, director_ID
+from movies m, directs s
+where m.movie_ID = s.movie_ID
+and s.director_ID = p.director_ID
+and nvl(m.rating, 0) >= 0
+and nvl(m.rating, 0) <= 1
+group by director_ID))) one
+where ten.director_ID = tot.director_ID
+and nine.director_ID = tot.director_ID
+and eight.director_ID = tot.director_ID
+and seven.director_ID = tot.director_ID
+and six.director_ID = tot.director_ID
+and five.director_ID = tot.director_ID
+and four.director_ID = tot.director_ID
+and three.director_ID = tot.director_ID
+and two.director_ID = tot.director_ID
+and one.director_ID = tot.director_ID
+and one.director_ID = 4776072;

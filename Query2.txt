@@ -1,0 +1,9 @@
+//Gives the names of all the stars who've only starred in movies with ratings of 10.
+
+select distinct s.name
+from stars s, stars_in b
+where s.star_ID = b.star_ID
+and not exists (select *
+from movies p
+where p.movie_ID = b.movie_ID
+and nvl(p.rating,0) <> 10);
