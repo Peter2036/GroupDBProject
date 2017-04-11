@@ -1,0 +1,25 @@
+//Gives the amount of movies a star, director, and writer has been in, respectively.
+
+"select * from ( "
++"select star_ID, count(*) as Total "
++"from movies m, stars_in s "
++"where m.movie_ID = s.movie_ID "
++"group by star_ID) "
++"where star_ID = " + id;
+
+
+"select * from ( "
++"select director_ID, count(*) as Total "
++"from movies m, directs d "
++"where m.movie_ID = d.movie_ID "
++"group by director_ID) "
++"where director_ID = " + id;
+
+
+
+"select * from ( "
++"select writer_ID, count(*) as Total "
++"from movies m, writes_for w "
++"where m.movie_ID = w.movie_ID "
++"group by writer_ID) "
++"where writer_ID = " + id;
