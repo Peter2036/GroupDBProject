@@ -1,0 +1,4 @@
+"select release_year, count(*) as Total "
++"from movies "
++"group by release_year "
++"having nvl(release_year, 0) > 0; "
