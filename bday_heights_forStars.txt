@@ -1,0 +1,171 @@
+
+///FOR STARS/////////
+//3 tables for each star that shows the stars, writers, and directors w/ same height
+
+(select S2.name as Stars
+from stars S, stars S2
+where S.star_ID <> S2.star_ID
+and S.height = S2.height
+and S.height != 'NULL'
+and S.name != S2.name
+and S.star_ID = 1668398)
+
+UNION
+
+
+(select W.name as Writers
+from stars S, writers W
+where S.height = W.height
+and S.height != 'NULL'
+and S.star_ID = 16683980)
+
+UNION
+
+(select D.name as Directors
+from stars S, Directors D
+where S.height = D.height
+and S.height != 'NULL'
+and S.star_ID = 1668398);
+
+///FOR WRITERS/////////
+//3 tables for each star that shows the stars, writers, and directors w/ same height
+
+
+(select W2.name as Writers
+from writers W, writers W2
+where W.writer_ID <> W2.writer_ID
+and W.height = W2.height
+and W.height != 'NULL'
+and W.writer_ID = 1668398)
+
+UNION
+
+(select S.name as Stars
+from stars S, writers W
+where W.height = S.height
+and W.height != 'NULL'
+and W.writer_ID = 1668398)
+
+UNION
+
+(select D.name as Directors
+from writers W, directors D
+where W.height = D.height
+and W.height != 'NULL'
+and W.writer_ID = 1668398);
+
+///FOR DIRECTORS/////////
+//3 tables for each star that shows the stars, writers, and directors w/ same height
+
+
+(select D2.name as Directors
+from directors D, directors D2
+where D.director_ID <> D2.director_ID
+and D.height = D2.height
+and D.height != 'NULL'
+and D.name != D2.name
+and D.director_ID = 1668398)
+
+UNION
+
+(select W.name as Writers
+from directors D, writers W
+where D.height = W.height
+and D.height != 'NULL'
+and D.director_ID = 1668398)
+
+UNION
+
+(select S.name as Stars
+from directors D, stars S
+where D.height = D.height
+and D.height != 'NULL'
+and D.director_ID = 1668398);
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+/////////BIRTHDAYS
+
+///FOR STARS/////////
+//3 tables for each star that shows the stars, writers, and directors w/ same bday
+
+(select S2.name as Stars
+from stars S, stars S2
+where S.star_ID <> S2.star_ID
+and S.bday = S2.bday
+and S.bday != 'NULL'
+and S.name != S2.name
+and S.star_ID = 1668398)
+
+UNION
+
+
+(select W.name as Writers
+from stars S, writers W
+where S.bday = W.bday
+and S.bday != 'NULL'
+and S.star_ID = 16683980)
+
+UNION
+
+(select D.name as Directors
+from stars S, Directors D
+where S.bday = D.bday
+and S.bday != 'NULL'
+and S.star_ID = 1668398);
+
+///FOR WRITERS/////////
+//3 tables for each star that shows the stars, writers, and directors w/ same bday
+
+
+(select W2.name as Writers
+from writers W, writers W2
+where W.writer_ID <> W2.writer_ID
+and W.bday = W2.bday
+and W.bday != 'NULL'
+and W.writer_ID = 1668398)
+
+UNION
+
+(select S.name as Stars
+from stars S, writers W
+where W.bday = S.bday
+and W.bday != 'NULL'
+and W.writer_ID = 1668398)
+
+UNION
+
+(select D.name as Directors
+from writers W, directors D
+where W.bday = D.bday
+and W.bday != 'NULL'
+and W.writer_ID = 1668398);
+
+///FOR DIRECTORS/////////
+//3 tables for each star that shows the stars, writers, and directors w/ same bday
+
+
+(select D2.name as Directors
+from directors D, directors D2
+where D.director_ID <> D2.director_ID
+and D.bday = D2.bday
+and D.bday != 'NULL'
+and D.name != D2.name
+and D.director_ID = 1668398)
+
+UNION
+
+(select W.name as Writers
+from directors D, writers W
+where D.bday = W.bday
+and D.bday != 'NULL'
+and D.director_ID = 1668398)
+
+UNION
+
+(select S.name as Stars
+from directors D, stars S
+where D.bday = D.bday
+and D.bday != 'NULL'
+and D.director_ID = 1668398);
