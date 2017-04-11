@@ -654,7 +654,8 @@ public class percentDistribution extends HttpServlet {
             "5-6: ",
             "6-7: ",
             "7-8: ",
-            "8-9: "
+            "8-9: ",
+            "9-10: "
         };
         
         ResultSet resultSet = null;
@@ -670,7 +671,7 @@ public class percentDistribution extends HttpServlet {
         }
         resultSet = statement.executeQuery();
         out.print("<div align = \"center\" style = \"background-color:blue\">");
-        out.print("<select size = \"9\">");
+        out.print("<select size = \"10\">");
         resultSet.next();
        
         out.print("<option value = \"" + 0 + "\"> + "
@@ -699,6 +700,9 @@ public class percentDistribution extends HttpServlet {
                 + "</option>" );
         out.print("<option value = \"" + 8 + "\"> + "
                 + labels[8]  + resultSet.getString("8-9") + "%"
+                + "</option>" );
+        out.print("<option value = \"" + 9 + "\"> + "
+                + labels[9]  + resultSet.getString("9-10") + "%"
                 + "</option>" );
   
          out.print("</div>");
