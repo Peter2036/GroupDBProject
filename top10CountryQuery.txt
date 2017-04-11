@@ -1,0 +1,6 @@
+//Selects top 10 counties that movies are made in. 
+
+
+select * from(
+select country, count(country) as total from movies group by country order by total desc) 
+where ROWNUM  <= 10 AND country != 'NULL';
