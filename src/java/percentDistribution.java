@@ -37,32 +37,31 @@ public class percentDistribution extends HttpServlet {
             HttpServletResponse response)
             throws ServletException, IOException {
         
-        response.setContentType("image/png");
+        response.setContentType("text/html");
        
-        OutputStream out = response.getOutputStream();
-        String id = (String)request.getAttribute("id");
-        String type = (String)request.getAttribute("Type");
+        PrintWriter out = response.getWriter();
+        String id = (String)request.getParameter("id");
+        String type = (String)request.getParameter("type");
         RequestDispatcher rd = null;
-        JFreeChart chart = null;
-          if(type.equals("stars")){
-            rd = request.getRequestDispatcher("/star_search.jsp");
+        if(type.equals("stars")){
+            rd = request.getRequestDispatcher("pagePersonLinker?id=" + id + "&type=" + type);
         }
         else if(type.equals("writers")){
-           rd = request.getRequestDispatcher("/writer_search.jsp"); 
+           rd = request.getRequestDispatcher("pagePersonLinker?id=" + id + "&type=" + type); 
         }
         else if(type.equals("directors")){
-            rd = request.getRequestDispatcher("/director_search.jsp");
+            rd = request.getRequestDispatcher("pagePersonLinker?id=" + id + "&type=" + type);
         }   
+        rd.include(request,response);
         try {
-            chart = getChart(type);
+            listDistribution(type, out, id);
         } catch (SQLException ex) {
             Logger.getLogger(percentDistribution.class.getName()).log(Level.SEVERE, null, ex);
         }
-        ChartUtilities.writeChartAsPNG(out, chart, 500, 500);  
-        rd.include(request,response);
+        
     }
     
-    private JFreeChart getChart(String type) throws SQLException{
+    private void listDistribution(String type, PrintWriter out, String id) throws SQLException{
         InitialContext initialContext = null;
         try {
             initialContext = new InitialContext();
@@ -82,58 +81,628 @@ public class percentDistribution extends HttpServlet {
             Logger.getLogger(records.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        String query[] = new String[]{
+        
+        String queryStar = 
+            "select ten.star_ID, Total, "
+            +"((zeroOne/Total) * 100) as \"0-1/NULL\", "
+            +"((oneTwo/Total) * 100) as \"1-2\", "
+            +"((twoThree/Total) * 100) as \"2-3\", "
+            +"((threeFour/Total) * 100) as \"3-4\", "
+            +"((fourFive/Total) * 100) as \"4-5\", "
+            +"((fiveSix/Total) * 100) as \"5-6\", "
+            +"((sixSeven/Total) * 100) as \"6-7\", "
+            +"((sevenEight/Total) * 100) as \"7-8\", "
+            +"((eightNine/Total) * 100) as \"8-9\", "
+            +"((nineTen/Total) * 100) as \"9-10\" "
+            +"from "
+            +"((select count(*) as nineTen, star_ID "
+            +"from movies m, stars_in s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and nvl(m.rating, 0) > 9 "
+            +"group by star_ID) "
+            +"union "
+            +"(select 0 as nineTen, star_ID "
+            +"from stars_in p "
+            +"where not exists (select count(*) as nineTen, star_ID "
+            +"from movies m, stars_in s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and s.star_ID = p.star_ID "
+            +"and nvl(m.rating, 0) > 9 "
+            +"group by star_ID))) ten, "
+            +"(select count(*) as Total, star_ID "
+            +"from movies m, stars_in s "
+            +"where m.movie_ID = s.movie_ID "
+            +"group by star_ID) tot, "
+            +"((select count(*) as eightNine, star_ID "
+            +"from movies m, stars_in s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and nvl(m.rating, 0) > 8 "
+            +"and nvl(m.rating, 0) <= 9 "
+            +"group by star_ID) "
+            +"union "
+            +"(select 0 as eightNine, star_ID "
+            +"from stars_in p "
+            +"where not exists (select count(*) as eightNine, star_ID "
+            +"from movies m, stars_in s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and s.star_ID = p.star_ID "
+            +"and nvl(m.rating, 0) > 8 "
+            +"and nvl(m.rating, 0) <= 9 "
+            +"group by star_ID))) nine, "
+            +"((select count(*) as sevenEight, star_ID "
+            +"from movies m, stars_in s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and nvl(m.rating, 0) > 7 "
+            +"and nvl(m.rating, 0) <= 8 "
+            +"group by star_ID) "
+            +"union "
+            +"(select 0 as sevenEight, star_ID "
+            +"from stars_in p "
+            +"where not exists (select count(*) as sevenEight, star_ID "
+            +"from movies m, stars_in s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and s.star_ID = p.star_ID "
+            +"and nvl(m.rating, 0) > 7 "
+            +"and nvl(m.rating, 0) <= 8 "
+            +"group by star_ID))) eight, "
+            +"((select count(*) as sixSeven, star_ID "
+            +"from movies m, stars_in s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and nvl(m.rating, 0) > 6 "
+            +"and nvl(m.rating, 0) <= 7 "
+            +"group by star_ID) "
+            +"union "
+            +"(select 0 as sixSeven, star_ID "
+            +"from stars_in p "
+            +"where not exists (select count(*) as sixSeven, star_ID "
+            +"from movies m, stars_in s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and s.star_ID = p.star_ID "
+            +"and nvl(m.rating, 0) > 6 "
+            +"and nvl(m.rating, 0) <= 7 "
+            +"group by star_ID))) seven, "
+            +"((select count(*) as fiveSix, star_ID "
+            +"from movies m, stars_in s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and nvl(m.rating, 0) > 5 "
+            +"and nvl(m.rating, 0) <= 6 "
+            +"group by star_ID) "
+            +"union "
+            +"(select 0 as fiveSix, star_ID "
+            +"from stars_in p "
+            +"where not exists (select count(*) as fiveSix, star_ID "
+            +"from movies m, stars_in s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and s.star_ID = p.star_ID "
+            +"and nvl(m.rating, 0) > 5 "
+            +"and nvl(m.rating, 0) <= 6 "
+            +"group by star_ID))) six, "
+            +"((select count(*) as fourFive, star_ID "
+            +"from movies m, stars_in s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and nvl(m.rating, 0) > 4 "
+            +"and nvl(m.rating, 0) <= 5 "
+            +"group by star_ID) "
+            +"union "
+            +"(select 0 as fourFive, star_ID "
+            +"from stars_in p "
+            +"where not exists (select count(*) as fourFive, star_ID "
+            +"from movies m, stars_in s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and s.star_ID = p.star_ID "
+            +"and nvl(m.rating, 0) > 4 "
+            +"and nvl(m.rating, 0) <= 5 "
+            +"group by star_ID))) five, "
+            +"((select count(*) as threeFour, star_ID "
+            +"from movies m, stars_in s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and nvl(m.rating, 0) > 3 "
+            +"and nvl(m.rating, 0) <= 4 "
+            +"group by star_ID) "
+            +"union "
+            +"(select 0 as threeFour, star_ID "
+            +"from stars_in p "
+            +"where not exists (select count(*) as threeFour, star_ID "
+            +"from movies m, stars_in s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and s.star_ID = p.star_ID "
+            +"and nvl(m.rating, 0) > 3 "
+            +"and nvl(m.rating, 0) <= 4 "
+            +"group by star_ID))) four, "
+            +"((select count(*) as twoThree, star_ID "
+            +"from movies m, stars_in s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and nvl(m.rating, 0) > 2 "
+            +"and nvl(m.rating, 0) <= 3 "
+            +"group by star_ID) "
+            +"union "
+            +"(select 0 as twoThree, star_ID "
+            +"from stars_in p "
+            +"where not exists (select count(*) as twoThree, star_ID "
+            +"from movies m, stars_in s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and s.star_ID = p.star_ID "
+            +"and nvl(m.rating, 0) > 2 "
+            +"and nvl(m.rating, 0) <= 3 "
+            +"group by star_ID))) three, "
+            +"((select count(*) as oneTwo, star_ID "
+            +"from movies m, stars_in s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and nvl(m.rating, 0) > 1 "
+            +"and nvl(m.rating, 0) <= 2 "
+            +"group by star_ID) "
+            +"union "
+            +"(select 0 as oneTwo, star_ID "
+            +"from stars_in p "
+            +"where not exists (select count(*) as oneTwo, star_ID "
+            +"from movies m, stars_in s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and s.star_ID = p.star_ID "
+            +"and nvl(m.rating, 0) > 1 "
+            +"and nvl(m.rating, 0) <= 2 "
+            +"group by star_ID))) two, "
+            +"((select count(*) as zeroOne, star_ID "
+            +"from movies m, stars_in s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and nvl(m.rating, 0) >= 0 "
+            +"and nvl(m.rating, 0) <= 1 "
+            +"group by star_ID) "
+            +"union "
+            +"(select 0 as zeroOne, star_ID "
+            +"from stars_in p "
+            +"where not exists (select count(*) as zeroOne, star_ID "
+            +"from movies m, stars_in s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and s.star_ID = p.star_ID "
+            +"and nvl(m.rating, 0) >= 0 "
+            +"and nvl(m.rating, 0) <= 1 "
+            +"group by star_ID))) one "
+            +"where ten.star_ID = tot.star_ID "
+            +"and nine.star_ID = tot.star_ID "
+            +"and eight.star_ID = tot.star_ID "
+            +"and seven.star_ID = tot.star_ID "
+            +"and six.star_ID = tot.star_ID "
+            +"and five.star_ID = tot.star_ID "
+            +"and four.star_ID = tot.star_ID "
+            +"and three.star_ID = tot.star_ID "
+            +"and two.star_ID = tot.star_ID "
+            +"and one.star_ID = tot.star_ID "
+            +"and one.star_ID = " + id;
+        
+
+        String queryWriter = 
+            "select ten.writer_ID, Total, "
+            +"((zeroOne/Total) * 100) as \"0-1/NULL\", "
+            +"((oneTwo/Total) * 100) as \"1-2\", "
+            +"((twoThree/Total) * 100) as \"2-3\", "
+            +"((threeFour/Total) * 100) as \"3-4\", "
+            +"((fourFive/Total) * 100) as \"4-5\", "
+            +"((fiveSix/Total) * 100) as \"5-6\", "
+            +"((sixSeven/Total) * 100) as \"6-7\", "
+            +"((sevenEight/Total) * 100) as \"7-8\", "
+            +"((eightNine/Total) * 100) as \"8-9\", "
+            +"((nineTen/Total) * 100) as \"9-10\" "
+            +"from "
+            +"((select count(*) as nineTen, writer_ID "
+            +"from movies m, writes_for s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and nvl(m.rating, 0) > 9 "
+            +"group by writer_ID) "
+            +"union "
+            +"(select 0 as nineTen, writer_ID "
+            +"from writes_for p "
+            +"where not exists (select count(*) as nineTen, writer_ID "
+            +"from movies m, writes_for s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and s.writer_ID = p.writer_ID "
+            +"and nvl(m.rating, 0) > 9 "
+            +"group by writer_ID))) ten, "
+            +"(select count(*) as Total, writer_ID "
+            +"from movies m, writes_for s "
+            +"where m.movie_ID = s.movie_ID "
+            +"group by writer_ID) tot, "
+            +"((select count(*) as eightNine, writer_ID "
+            +"from movies m, writes_for s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and nvl(m.rating, 0) > 8 "
+            +"and nvl(m.rating, 0) <= 9 "
+            +"group by writer_ID) "
+            +"union "
+            +"(select 0 as eightNine, writer_ID "
+            +"from writes_for p "
+            +"where not exists (select count(*) as eightNine, writer_ID "
+            +"from movies m, writes_for s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and s.writer_ID = p.writer_ID "
+            +"and nvl(m.rating, 0) > 8 "
+            +"and nvl(m.rating, 0) <= 9 "
+            +"group by writer_ID))) nine, "
+            +"((select count(*) as sevenEight, writer_ID "
+            +"from movies m, writes_for s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and nvl(m.rating, 0) > 7 "
+            +"and nvl(m.rating, 0) <= 8 "
+            +"group by writer_ID) "
+            +"union "
+            +"(select 0 as sevenEight, writer_ID "
+            +"from writes_for p "
+            +"where not exists (select count(*) as sevenEight, writer_ID "
+            +"from movies m, writes_for s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and s.writer_ID = p.writer_ID "
+            +"and nvl(m.rating, 0) > 7 "
+            +"and nvl(m.rating, 0) <= 8 "
+            +"group by writer_ID))) eight, "
+            +"((select count(*) as sixSeven, writer_ID "
+            +"from movies m, writes_for s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and nvl(m.rating, 0) > 6 "
+            +"and nvl(m.rating, 0) <= 7 "
+            +"group by writer_ID) "
+            +"union "
+            +"(select 0 as sixSeven, writer_ID "
+            +"from writes_for p "
+            +"where not exists (select count(*) as sixSeven, writer_ID "
+            +"from movies m, writes_for s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and s.writer_ID = p.writer_ID "
+            +"and nvl(m.rating, 0) > 6 "
+            +"and nvl(m.rating, 0) <= 7 "
+            +"group by writer_ID))) seven, "
+            +"((select count(*) as fiveSix, writer_ID "
+            +"from movies m, writes_for s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and nvl(m.rating, 0) > 5 "
+            +"and nvl(m.rating, 0) <= 6 "
+            +"group by writer_ID) "
+            +"union "
+            +"(select 0 as fiveSix, writer_ID "
+            +"from writes_for p "
+            +"where not exists (select count(*) as fiveSix, writer_ID "
+            +"from movies m, writes_for s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and s.writer_ID = p.writer_ID "
+            +"and nvl(m.rating, 0) > 5 "
+            +"and nvl(m.rating, 0) <= 6 "
+            +"group by writer_ID))) six, "
+            +"((select count(*) as fourFive, writer_ID "
+            +"from movies m, writes_for s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and nvl(m.rating, 0) > 4 "
+            +"and nvl(m.rating, 0) <= 5 "
+            +"group by writer_ID) "
+            +"union "
+            +"(select 0 as fourFive, writer_ID "
+            +"from writes_for p "
+            +"where not exists (select count(*) as fourFive, writer_ID "
+            +"from movies m, writes_for s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and s.writer_ID = p.writer_ID "
+            +"and nvl(m.rating, 0) > 4 "
+            +"and nvl(m.rating, 0) <= 5 "
+            +"group by writer_ID))) five, "
+            +"((select count(*) as threeFour, writer_ID "
+            +"from movies m, writes_for s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and nvl(m.rating, 0) > 3 "
+            +"and nvl(m.rating, 0) <= 4 "
+            +"group by writer_ID) "
+            +"union "
+            +"(select 0 as threeFour, writer_ID "
+            +"from writes_for p "
+            +"where not exists (select count(*) as threeFour, writer_ID "
+            +"from movies m, writes_for s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and s.writer_ID = p.writer_ID "
+            +"and nvl(m.rating, 0) > 3 "
+            +"and nvl(m.rating, 0) <= 4 "
+            +"group by writer_ID))) four, "
+            +"((select count(*) as twoThree, writer_ID "
+            +"from movies m, writes_for s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and nvl(m.rating, 0) > 2 "
+            +"and nvl(m.rating, 0) <= 3 "
+            +"group by writer_ID) "
+            +"union "
+            +"(select 0 as twoThree, writer_ID "
+            +"from writes_for p "
+            +"where not exists (select count(*) as twoThree, writer_ID "
+            +"from movies m, writes_for s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and s.writer_ID = p.writer_ID "
+            +"and nvl(m.rating, 0) > 2 "
+            +"and nvl(m.rating, 0) <= 3 "
+            +"group by writer_ID))) three, "
+            +"((select count(*) as oneTwo, writer_ID "
+            +"from movies m, writes_for s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and nvl(m.rating, 0) > 1 "
+            +"and nvl(m.rating, 0) <= 2 "
+            +"group by writer_ID) "
+            +"union "
+            +"(select 0 as oneTwo, writer_ID "
+            +"from writes_for p "
+            +"where not exists (select count(*) as oneTwo, writer_ID "
+            +"from movies m, writes_for s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and s.writer_ID = p.writer_ID "
+            +"and nvl(m.rating, 0) > 1 "
+            +"and nvl(m.rating, 0) <= 2 "
+            +"group by writer_ID))) two, "
+            +"((select count(*) as zeroOne, writer_ID "
+            +"from movies m, writes_for s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and nvl(m.rating, 0) >= 0 "
+            +"and nvl(m.rating, 0) <= 1 "
+            +"group by writer_ID) "
+            +"union "
+            +"(select 0 as zeroOne, writer_ID "
+            +"from writes_for p "
+            +"where not exists (select count(*) as zeroOne, writer_ID "
+            +"from movies m, writes_for s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and s.writer_ID = p.writer_ID "
+            +"and nvl(m.rating, 0) >= 0 "
+            +"and nvl(m.rating, 0) <= 1 "
+            +"group by writer_ID))) one "
+            +"where ten.writer_ID = tot.writer_ID "
+            +"and nine.writer_ID = tot.writer_ID "
+            +"and eight.writer_ID = tot.writer_ID "
+            +"and seven.writer_ID = tot.writer_ID "
+            +"and six.writer_ID = tot.writer_ID "
+            +"and five.writer_ID = tot.writer_ID "
+            +"and four.writer_ID = tot.writer_ID "
+            +"and three.writer_ID = tot.writer_ID "
+            +"and two.writer_ID = tot.writer_ID "
+            +"and one.writer_ID = tot.writer_ID "
+            +"and one.writer_ID = " + id;
             
-        };
+        String queryDirector = 
+             "select ten.director_ID, Total, "
+            +"((zeroOne/Total) * 100) as \"0-1/NULL\", "
+            +"((oneTwo/Total) * 100) as \"1-2\", "
+            +"((twoThree/Total) * 100) as \"2-3\", "
+            +"((threeFour/Total) * 100) as \"3-4\", "
+            +"((fourFive/Total) * 100) as \"4-5\", "
+            +"((fiveSix/Total) * 100) as \"5-6\", "
+            +"((sixSeven/Total) * 100) as \"6-7\", "
+            +"((sevenEight/Total) * 100) as \"7-8\", "
+            +"((eightNine/Total) * 100) as \"8-9\", "
+            +"((nineTen/Total) * 100) as \"9-10\" "
+            +"from "
+            +"((select count(*) as nineTen, director_ID "
+            +"from movies m, directs s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and nvl(m.rating, 0) > 9 "
+            +"group by director_ID) "
+            +"union "
+            +"(select 0 as nineTen, director_ID "
+            +"from directs p "
+            +"where not exists (select count(*) as nineTen, director_ID "
+            +"from movies m, directs s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and s.director_ID = p.director_ID "
+            +"and nvl(m.rating, 0) > 9 "
+            +"group by director_ID))) ten, "
+            +"(select count(*) as Total, director_ID "
+            +"from movies m, directs s "
+            +"where m.movie_ID = s.movie_ID "
+            +"group by director_ID) tot, "
+            +"((select count(*) as eightNine, director_ID "
+            +"from movies m, directs s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and nvl(m.rating, 0) > 8 "
+            +"and nvl(m.rating, 0) <= 9 "
+            +"group by director_ID) "
+            +"union "
+            +"(select 0 as eightNine, director_ID "
+            +"from directs p "
+            +"where not exists (select count(*) as eightNine, director_ID "
+            +"from movies m, directs s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and s.director_ID = p.director_ID "
+            +"and nvl(m.rating, 0) > 8 "
+            +"and nvl(m.rating, 0) <= 9 "
+            +"group by director_ID))) nine, "
+            +"((select count(*) as sevenEight, director_ID "
+            +"from movies m, directs s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and nvl(m.rating, 0) > 7 "
+            +"and nvl(m.rating, 0) <= 8 "
+            +"group by director_ID) "
+            +"union "
+            +"(select 0 as sevenEight, director_ID "
+            +"from directs p "
+            +"where not exists (select count(*) as sevenEight, director_ID "
+            +"from movies m, directs s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and s.director_ID = p.director_ID "
+            +"and nvl(m.rating, 0) > 7 "
+            +"and nvl(m.rating, 0) <= 8 "
+            +"group by director_ID))) eight, "
+            +"((select count(*) as sixSeven, director_ID "
+            +"from movies m, directs s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and nvl(m.rating, 0) > 6 "
+            +"and nvl(m.rating, 0) <= 7 "
+            +"group by director_ID) "
+            +"union "
+            +"(select 0 as sixSeven, director_ID "
+            +"from directs p "
+            +"where not exists (select count(*) as sixSeven, director_ID "
+            +"from movies m, directs s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and s.director_ID = p.director_ID "
+            +"and nvl(m.rating, 0) > 6 "
+            +"and nvl(m.rating, 0) <= 7 "
+            +"group by director_ID))) seven, "
+            +"((select count(*) as fiveSix, director_ID "
+            +"from movies m, directs s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and nvl(m.rating, 0) > 5 "
+            +"and nvl(m.rating, 0) <= 6 "
+            +"group by director_ID) "
+            +"union "
+            +"(select 0 as fiveSix, director_ID "
+            +"from directs p "
+            +"where not exists (select count(*) as fiveSix, director_ID "
+            +"from movies m, directs s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and s.director_ID = p.director_ID "
+            +"and nvl(m.rating, 0) > 5 "
+            +"and nvl(m.rating, 0) <= 6 "
+            +"group by director_ID))) six, "
+            +"((select count(*) as fourFive, director_ID "
+            +"from movies m, directs s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and nvl(m.rating, 0) > 4 "
+            +"and nvl(m.rating, 0) <= 5 "
+            +"group by director_ID) "
+            +"union "
+            +"(select 0 as fourFive, director_ID "
+            +"from directs p "
+            +"where not exists (select count(*) as fourFive, director_ID "
+            +"from movies m, directs s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and s.director_ID = p.director_ID "
+            +"and nvl(m.rating, 0) > 4 "
+            +"and nvl(m.rating, 0) <= 5 "
+            +"group by director_ID))) five, "
+            +"((select count(*) as threeFour, director_ID "
+            +"from movies m, directs s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and nvl(m.rating, 0) > 3 "
+            +"and nvl(m.rating, 0) <= 4 "
+            +"group by director_ID) "
+            +"union "
+            +"(select 0 as threeFour, director_ID "
+            +"from directs p "
+            +"where not exists (select count(*) as threeFour, director_ID "
+            +"from movies m, directs s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and s.director_ID = p.director_ID "
+            +"and nvl(m.rating, 0) > 3 "
+            +"and nvl(m.rating, 0) <= 4 "
+            +"group by director_ID))) four, "
+            +"((select count(*) as twoThree, director_ID "
+            +"from movies m, directs s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and nvl(m.rating, 0) > 2 "
+            +"and nvl(m.rating, 0) <= 3 "
+            +"group by director_ID) "
+            +"union "
+            +"(select 0 as twoThree, director_ID "
+            +"from directs p "
+            +"where not exists (select count(*) as twoThree, director_ID "
+            +"from movies m, directs s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and s.director_ID = p.director_ID "
+            +"and nvl(m.rating, 0) > 2 "
+            +"and nvl(m.rating, 0) <= 3 "
+            +"group by director_ID))) three, "
+            +"((select count(*) as oneTwo, director_ID "
+            +"from movies m, directs s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and nvl(m.rating, 0) > 1 "
+            +"and nvl(m.rating, 0) <= 2 "
+            +"group by director_ID) "
+            +"union "
+            +"(select 0 as oneTwo, director_ID "
+            +"from directs p "
+            +"where not exists (select count(*) as oneTwo, director_ID "
+            +"from movies m, directs s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and s.director_ID = p.director_ID "
+            +"and nvl(m.rating, 0) > 1 "
+            +"and nvl(m.rating, 0) <= 2 "
+            +"group by director_ID))) two, "
+            +"((select count(*) as zeroOne, director_ID "
+            +"from movies m, directs s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and nvl(m.rating, 0) >= 0 "
+            +"and nvl(m.rating, 0) <= 1 "
+            +"group by director_ID) "
+            +"union "
+            +"(select 0 as zeroOne, director_ID "
+            +"from directs p "
+            +"where not exists (select count(*) as zeroOne, director_ID "
+            +"from movies m, directs s "
+            +"where m.movie_ID = s.movie_ID "
+            +"and s.director_ID = p.director_ID "
+            +"and nvl(m.rating, 0) >= 0 "
+            +"and nvl(m.rating, 0) <= 1 "
+            +"group by director_ID))) one "
+            +"where ten.director_ID = tot.director_ID "
+            +"and nine.director_ID = tot.director_ID "
+            +"and eight.director_ID = tot.director_ID "
+            +"and seven.director_ID = tot.director_ID "
+            +"and six.director_ID = tot.director_ID "
+            +"and five.director_ID = tot.director_ID "
+            +"and four.director_ID = tot.director_ID "
+            +"and three.director_ID = tot.director_ID "
+            +"and two.director_ID = tot.director_ID "
+            +"and one.director_ID = tot.director_ID "
+            +"and one.director_ID = " + id;
+
         
         String labels[] = new String[]{
-            "0-1/NULL",
-            "1-2",
-            "2-3",
-            "3-4",
-            "4-5",
-            "5-6",
-            "6-7",
-            "7-8",
-            "8-9"
+            "0-1/NULL: ",
+            "1-2: ",
+            "2-3: ",
+            "3-4: ",
+            "4-5: ",
+            "5-6: ",
+            "6-7: ",
+            "7-8: ",
+            "8-9: "
         };
         
-        
-        DefaultPieDataset dataset = new DefaultPieDataset();
         ResultSet resultSet = null;
         PreparedStatement statement = null; 
         if(type.equals("stars")){
-            statement = connection.prepareStatement(query[0]);
+            statement = connection.prepareStatement(queryStar);
         }
         else if(type.equals("writers")){
-            statement = connection.prepareStatement(query[1]);
+            statement = connection.prepareStatement(queryWriter);
         }
         else if(type.equals("directors")){
-            statement = connection.prepareStatement(query[2]);
+            statement = connection.prepareStatement(queryDirector);
         }
         resultSet = statement.executeQuery();
+        out.print("<div align = \"center\" style = \"background-color:blue\">");
+        out.print("<select size = \"9\">");
         resultSet.next();
+       
+        out.print("<option value = \"" + 0 + "\"> + "
+                + labels[0]  + resultSet.getString("0-1/NULL") + "%"
+                + "</option>" );
+        out.print("<option value = \"" + 1 + "\"> + "
+                + labels[1]  + resultSet.getString("1-2") + "%"
+                + "</option>" );
+        out.print("<option value = \"" + 2 + "\"> + "
+                + labels[2]  + resultSet.getString("2-3") + "%"
+                + "</option>" );
+        out.print("<option value = \"" + 3 + "\"> + "
+                + labels[3]  + resultSet.getString("3-4") + "%"
+                + "</option>" );
+        out.print("<option value = \"" + 4 + "\"> + "
+                + labels[4]  + resultSet.getString("4-5") + "%" 
+                + "</option>" );
+        out.print("<option value = \"" + 5 + "\"> + "
+                + labels[5]  + resultSet.getString("5-6") + "%"
+                + "</option>" );
+        out.print("<option value = \"" + 6 + "\"> + "
+                + labels[6]  + resultSet.getString("6-7") + "%"
+                + "</option>" );
+        out.print("<option value = \"" + 7 + "\"> + "
+                + labels[7]  + resultSet.getString("7-8") + "%"
+                + "</option>" );
+        out.print("<option value = \"" + 8 + "\"> + "
+                + labels[8]  + resultSet.getString("8-9") + "%"
+                + "</option>" );
+  
+         out.print("</div>");
 
-        dataset.setValue(labels[0], Integer.parseInt(resultSet.getString("0-1/NULL")));
-        dataset.setValue(labels[1], Integer.parseInt(resultSet.getString("1-2")));
-        dataset.setValue(labels[2], Integer.parseInt(resultSet.getString("2-3")));
-        dataset.setValue(labels[3], Integer.parseInt(resultSet.getString("3-4")));
-        dataset.setValue(labels[4], Integer.parseInt(resultSet.getString("4-5")));
-        dataset.setValue(labels[5], Integer.parseInt(resultSet.getString("5-6")));
-        dataset.setValue(labels[6], Integer.parseInt(resultSet.getString("6-7")));
-        dataset.setValue(labels[7], Integer.parseInt(resultSet.getString("7-8")));
-        dataset.setValue(labels[8], Integer.parseInt(resultSet.getString("8-9")));
-        dataset.setValue(labels[9], Integer.parseInt(resultSet.getString("9-10")));
-           
-        JFreeChart chart = ChartFactory.createPieChart("Rating Percentage Distribution", dataset, true, true, true);
-	chart.setBorderPaint(Color.BLUE);
-	chart.setBorderStroke(new BasicStroke(5.0f));
-	chart.setBorderVisible(true);
-        PiePlot plot = (PiePlot) chart.getPlot();
-        PieSectionLabelGenerator generator = new StandardPieSectionLabelGenerator( 
-        "{0} = {2}", new DecimalFormat("0"), new DecimalFormat("0.00%")); 
-        plot.setLabelGenerator(generator); 
-        
          try {  
             connection.close();
         } catch (SQLException ex) {
@@ -149,8 +718,6 @@ public class percentDistribution extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(records.class.getName()).log(Level.SEVERE, null, ex);
         }   
-        
-	return chart;
-        
+  
     }
 }

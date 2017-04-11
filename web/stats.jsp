@@ -49,6 +49,12 @@
         <font color = "blue"><center><h3 style = "margin-top:10px">Get 50 highest ranked movies</h3></font>
         <input type = "submit" style ="margin-bottom:10px;background-color:blue;color:orange" value = "Show">
     </div>
+</form>
+<form name ="top10countriesQuery" action ="top10CountryGetter" method ="GET" enctype ="text/plain">
+    <div style = "margin-top:-10px;margin-bottom:10px;border-color: orange;background-color:orange" align = "center">
+        <font color = "blue"><center><h3 style = "margin-top:10px">Get top 10 movie producing countries as pie chart</h3></font>
+        <input type = "submit" style ="margin-bottom:10px;background-color:blue;color:orange" value = "Show">
+    </div>
 </form>  
 </body>
 </html>
