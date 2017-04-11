@@ -86,6 +86,25 @@
     </servlet-mapping>
     
     <servlet>
+        <servlet-name>yearCount</servlet-name>
+        <servlet-class>yearCount</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>yearCount</servlet-name>
+        <url-pattern>/yearCount</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>yearCountGetter</servlet-name>
+        <servlet-class>yearCountGetter</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>yearCountGetter</servlet-name>
+        <url-pattern>/yearCountGetter</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet>
         <servlet-name>home</servlet-name>
         <servlet-class>home</servlet-class>
     </servlet>
