@@ -1,0 +1,11 @@
+/*List of 50 actors where top person of the list stars in the most movies*/
+
+SELECT * FROM (
+
+SELECT COUNT(*) as NumberOfMovies, stars.name FROM stars, stars_in, movies
+where stars_in.movie_id = movies.movie_id
+and stars_in.star_id = stars.star_id
+group by stars.name
+order by count(*) desc
+)
+where rownum <= 50;
