@@ -139,13 +139,27 @@ public class pagePersonLinker extends HttpServlet {
         out.print("<h4 style = color:orange> Amount of other writers worked with: " + resultSet.getString("fellowW") + "</h1>");
         out.print("<h4 style = color:orange> Amount of directors worked with: " + resultSet.getString("fellowD") + "</h1>");
         
+        query = "select * from ( "
+                +"select writer_ID, count(*) as Total "
+                +"from movies m, writes_for w "
+                +"where m.movie_ID = w.movie_ID "
+                +"group by writer_ID) "
+                +"where writer_ID = " + id;
+        
+        statement = connection.prepareStatement(query);
+        resultSet = statement.executeQuery();
+        resultSet.next();
+        
+        out.print("<h4 style = color:orange> Amount of movies worked in: " + resultSet.getString("total") + "</h1>");
+        
         out.print("</div>");
 
-        out.print("<form name =\"percentDistribution\" action =\"percentDistributionGetter\" method =\"GET\" enctype =\"text/plain\">");
+        out.print("<form name =\"percentDistributionGetter\" action =\"percentDistribution\" method =\"GET\" enctype =\"text/plain\">");
         out.print("<div style = \"margin-top:-10px;margin-bottom:10px;border-color: orange;background-color:orange\" align = \"center\">");
         out.print("<font color = \"blue\"><h3 style = \"margin-top:10px\">Get percentage distribution of rating for movies starred in</h3></font>");
+        out.print("<input type = \"submit\" style =\"margin-bottom:10px;background-color:blue;color:orange\" value = \"Show\">");
         out.print("<input type = \"hidden\" name = \"id\" value = " + id + " \" >");
-        out.print("<input type = \"hidden\" name = \"id\" value = " + type + " \" >");
+        out.print("<input type = \"hidden\" name = \"type\" value = " + type + " \" >");
         out.print("</div>");
         out.print("</form>");
         
@@ -231,13 +245,27 @@ public class pagePersonLinker extends HttpServlet {
         out.print("<h4 style = color:orange> Amount of writers worked with: " + resultSet.getString("fellowW") + "</h1>");
         out.print("<h4 style = color:orange> Amount of other directors worked with: " + resultSet.getString("fellowD") + "</h1>");
         
+        query = "select * from ( "
+                +"select director_ID, count(*) as Total "
+                +"from movies m, directs d "
+                +"where m.movie_ID = d.movie_ID "
+                +"group by director_ID) "
+                +"where director_ID = " + id;
+        
+        statement = connection.prepareStatement(query);
+        resultSet = statement.executeQuery();
+        resultSet.next();
+        
+        out.print("<h4 style = color:orange> Amount of movies worked in: " + resultSet.getString("total") + "</h1>");
+        
         out.print("</div>");
         
-        out.print("<form name =\"percentDistribution\" action =\"percentDistributionGetter\" method =\"GET\" enctype =\"text/plain\">");
+        out.print("<form name =\"percentDistribution\" action =\"percentDistribution\" method =\"GET\" enctype =\"text/plain\">");
         out.print("<div style = \"margin-top:-10px;margin-bottom:10px;border-color: orange;background-color:orange\" align = \"center\">");
-        out.print("<font color = \"blue\"><h3 style = \"margin-top:10px\">Get percentage distribution of rating for movies starred in</h3></font>");
+        out.print("<font color = \"blue\"><h3 style = \"margin-top:10px\">Get percentage distribution of rating for movies directed</h3></font>");
+        out.print("<input type = \"submit\" style =\"margin-bottom:10px;background-color:blue;color:orange\" value = \"Show\">");
         out.print("<input type = \"hidden\" name = \"id\" value = " + id + " \" >");
-        out.print("<input type = \"hidden\" name = \"id\" value = " + type + " \" >");
+        out.print("<input type = \"hidden\" name = \"type\" value = " + type + " \" >");
         out.print("</div>");
         out.print("</form>");
         
@@ -321,14 +349,30 @@ public class pagePersonLinker extends HttpServlet {
         out.print("<h4 style = color:orange> Amount of other stars worked with: " + resultSet.getString("fellowS") + "</h1>");
         out.print("<h4 style = color:orange> Amount of writers worked with: " + resultSet.getString("fellowW") + "</h1>");
         out.print("<h4 style = color:orange> Amount of directors worked with: " + resultSet.getString("fellowD") + "</h1>");
+        
+        query = "select * from ( "
+                +"select star_ID, count(*) as Total "
+                +"from movies m, stars_in s "
+                +"where m.movie_ID = s.movie_ID "
+                +"group by star_ID) "
+                +"where star_ID = " + id;
+
+        
+        statement = connection.prepareStatement(query);
+        resultSet = statement.executeQuery();
+        resultSet.next();
+        
+        out.print("<h4 style = color:orange> Amount of movies worked in: " + resultSet.getString("total") + "</h1>");
+        
        
         out.print("</div>");
         
-        out.print("<form name =\"percentDistribution\" action =\"percentDistributionGetter\" method =\"GET\" enctype =\"text/plain\">");
+        out.print("<form name =\"percentDistribution\" action =\"percentDistribution\" method =\"GET\" enctype =\"text/plain\">");
         out.print("<div style = \"margin-top:-10px;margin-bottom:10px;border-color: orange;background-color:orange\" align = \"center\">");
-        out.print("<font color = \"blue\"><h3 style = \"margin-top:10px\">Get percentage distribution of rating for movies starred in</h3></font>");
+        out.print("<font color = \"blue\"><h3 style = \"margin-top:10px\">Get percentage distribution of rating for movies written</h3></font>");
+        out.print("<input type = \"submit\" style =\"margin-bottom:10px;background-color:blue;color:orange\" value = \"Show\">");
         out.print("<input type = \"hidden\" name = \"id\" value = " + id + " \" >");
-        out.print("<input type = \"hidden\" name = \"id\" value = " + type + " \" >");
+        out.print("<input type = \"hidden\" name = \"type\" value = " + type + " \" >");
         out.print("</div>");
         out.print("</form>");
         

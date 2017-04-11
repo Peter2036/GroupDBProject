@@ -61,7 +61,7 @@ public class first50rankedMovies extends HttpServlet{
         String query = "select * from ( select movie_ID, title, nvl(rating, 0) as Rating, nvl(votes, 0) as Votes " 
                 + "from movies "
                 + "order by rating desc, votes desc) "
-                + "where Rownum <= 200";
+                + "where Rownum <= 50";
          
         ResultSet resultSet = null;
         PreparedStatement statement = connection.prepareStatement(query); 
