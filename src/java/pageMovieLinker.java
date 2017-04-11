@@ -74,30 +74,92 @@ public class pageMovieLinker extends HttpServlet {
         resultSet = statement.executeQuery();
         resultSet.next();
         out.print("<h4 style = color:orange> Ranking: " + resultSet.getString("Rank") + "</h1>"); 
-   
-        out.print("</div>");
         
-        query = "select distinct m1.movie_ID as T1, m2.title as T2, m1.country, m1.release_year "
-                + "from movies m1, movies m2 "
-                + "where m1.movie_ID <> m2.movie_ID "
-                + "and m1.country = m2.country " 
-                + "and m1.release_year = m2.release_year "
-                + "and rownum <= 50 "
-                + "and m1.movie_ID = " + id;
+        query = "select MW.movie_ID, D, W, S\n" +
+                "from\n" +
+                "((select count(*) as D, m.movie_ID\n" +
+                "from directs d, movies m\n" +
+                "where d.movie_ID = m.movie_ID\n" +
+                "group by m.movie_ID)\n" +
+                "union\n" +
+                "(select 0 as D, b.movie_ID\n" +
+                "from movies b\n" +
+                "where not exists (select count(*) as D, m.movie_ID\n" +
+                "from directs d, movies m\n" +
+                "where d.movie_ID = m.movie_ID\n" +
+                "and b.movie_ID = m.movie_ID\n" +
+                "group by m.movie_ID))) MD,\n" +
+                "((select count(*) as W, m.movie_ID\n" +
+                "from writes_for w, movies m\n" +
+                "where w.movie_ID = m.movie_ID\n" +
+                "group by m.movie_ID)\n" +
+                "union\n" +
+                "(select 0 as W, b.movie_ID\n" +
+                "from movies b\n" +
+                "where not exists (select count(*) as W, m.movie_ID\n" +
+                "from writes_for w, movies m\n" +
+                "where w.movie_ID = m.movie_ID\n" +
+                "and b.movie_ID = m.movie_ID\n" +
+                "group by m.movie_ID))) MW,\n" +
+                "((select count(*) as S, m.movie_ID\n" +
+                "from movies m, stars_in s\n" +
+                "where m.movie_ID = s.movie_ID\n" +
+                "group by m.movie_ID)\n" +
+                "union\n" +
+                "(select 0 as S, b.movie_ID\n" +
+                "from movies b\n" +
+                "where not exists (select count(*) as S, m.movie_ID\n" +
+                "from movies m, stars_in s\n" +
+                "where m.movie_ID = s.movie_ID\n" +
+                "and b.movie_ID = m.movie_ID\n" +
+                "group by m.movie_ID))) MS,\n" +
+                "movies m\n" +
+                "where MD.movie_ID = MW.movie_ID\n" +
+                "and MW.movie_ID = MS.movie_ID\n" +
+                "and MW.movie_ID = m.movie_ID\n" +
+                "and m.movie_ID = " + id;
         
         statement = connection.prepareStatement(query);
         resultSet = statement.executeQuery();
         resultSet.next();
+        out.print("<h4 style = color:orange> Amount of stars in movie: " + resultSet.getString("S") + "</h1>");
+        out.print("<h4 style = color:orange> Amount of writers in movie: " + resultSet.getString("W") + "</h1>");
+        out.print("<h4 style = color:orange> Amount of directors in movie: " + resultSet.getString("D") + "</h1>");
+
+        out.print("</div>");
         
-        out.print("<div align = \"center\" style = \"background-color:blue\">");
-        out.print("<h4 style = color:orange > Movies filmed in same country and debuted in same year </h1>");
-        int i = 0;
-        out.print("<select size = \"10\">");
-        while(resultSet.next()){
-            out.print("<option value = \"" + i + "\"> + "
-                    + resultSet.getString("T2") + "</option>" );
-            i++;
-        }
+        out.print("<form name =\"movieListStars\" action =\"movieListStars\" method =\"GET\" enctype =\"text/plain\">");
+        out.print("<div style = \"margin-top:-10px;margin-bottom:10px;border-color: orange;background-color:orange\" align = \"center\">");
+        out.print("<font color = \"blue\"><h3 style = \"margin-top:10px\">Get list of stars in movie</h3></font>");
+        out.print("<input type = \"submit\" style =\"margin-bottom:10px;background-color:blue;color:orange\" value = \"Show\">");
+        out.print("<input type = \"hidden\" name = \"id\" value = " + id + " \" >");
+        out.print("</div>");
+        out.print("</form>");
+        
+        out.print("<form name =\"movieListWriters\" action =\"movieListWriters\" method =\"GET\" enctype =\"text/plain\">");
+        out.print("<div style = \"margin-top:-10px;margin-bottom:10px;border-color: orange;background-color:orange\" align = \"center\">");
+        out.print("<font color = \"blue\"><h3 style = \"margin-top:10px\">Get list of writers in movie</h3></font>");
+        out.print("<input type = \"submit\" style =\"margin-bottom:10px;background-color:blue;color:orange\" value = \"Show\">");
+        out.print("<input type = \"hidden\" name = \"id\" value = " + id + " \" >");
+        out.print("</div>");
+        out.print("</form>");
+        
+        out.print("<form name =\"movieListDirectors\" action =\"movieListDirectors\" method =\"GET\" enctype =\"text/plain\">");
+        out.print("<div style = \"margin-top:-10px;margin-bottom:10px;border-color: orange;background-color:orange\" align = \"center\">");
+        out.print("<font color = \"blue\"><h3 style = \"margin-top:10px\">Get list of directors in movie</h3></font>");
+        out.print("<input type = \"submit\" style =\"margin-bottom:10px;background-color:blue;color:orange\" value = \"Show\">");
+        out.print("<input type = \"hidden\" name = \"id\" value = " + id + " \" >");
+        out.print("</div>");
+        out.print("</form>");
+        
+        out.print("<form name =\"debut\" action =\"debut\" method =\"GET\" enctype =\"text/plain\">");
+        out.print("<div style = \"margin-top:-10px;margin-bottom:10px;border-color: orange;background-color:orange\" align = \"center\">");
+        out.print("<font color = \"blue\"><h3 style = \"margin-top:10px\">Get list of movies that debut in same year and country</h3></font>");
+        out.print("<input type = \"submit\" style =\"margin-bottom:10px;background-color:blue;color:orange\" value = \"Show\">");
+        out.print("<input type = \"hidden\" name = \"id\" value = " + id + " \" >");
+        out.print("</div>");
+        out.print("</form>");
+        
         out.print("</div>");
         
         connection.close();  
