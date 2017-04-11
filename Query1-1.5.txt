@@ -2,6 +2,7 @@
 
 select movie_ID, title, nvl(rating, 0) as Rating, nvl(votes, 0) as Votes
 from movies
+where rownum <= 50
 order by rating desc, votes desc;
 
 

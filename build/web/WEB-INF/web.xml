@@ -43,6 +43,47 @@
         <url-pattern>/records</url-pattern>  
     </servlet-mapping> 
     
+    
+    <servlet>  
+        <servlet-name>recordsChart</servlet-name>  
+        <servlet-class>recordsChart</servlet-class>  
+    </servlet>  
+    
+    <servlet-mapping>  
+        <servlet-name>recordsChart</servlet-name>  
+        <url-pattern>/recordsChart</url-pattern>  
+    </servlet-mapping> 
+    
+    <servlet>  
+        <servlet-name>recordsChartGetter</servlet-name>  
+        <servlet-class>recordsChartGetter</servlet-class>  
+    </servlet>  
+    
+    <servlet-mapping>  
+        <servlet-name>recordsChartGetter</servlet-name>  
+        <url-pattern>/recordsChartGetter</url-pattern>  
+    </servlet-mapping> 
+    
+    <servlet>  
+        <servlet-name>actorsStarredIn10</servlet-name>  
+        <servlet-class>actorsStarredIn10</servlet-class>  
+    </servlet>  
+    
+    <servlet-mapping>  
+        <servlet-name>actorsStarredIn10</servlet-name>  
+        <url-pattern>/actorsStarredIn10</url-pattern>  
+    </servlet-mapping>
+    
+    <servlet>  
+        <servlet-name>first50rankedMovies</servlet-name>  
+        <servlet-class>first50rankedMovies</servlet-class>  
+    </servlet>  
+    
+    <servlet-mapping>  
+        <servlet-name>first50rankedMovies</servlet-name>  
+        <url-pattern>/first50rankedMovies</url-pattern>  
+    </servlet-mapping>
+    
      <servlet>  
         <servlet-name>home</servlet-name>  
         <servlet-class>home</servlet-class>  
@@ -61,7 +102,17 @@
     <servlet-mapping>  
         <servlet-name>pagePersonLinker</servlet-name>  
         <url-pattern>/pagePersonLinker</url-pattern>  
-    </servlet-mapping>   
+    </servlet-mapping>  
+    
+     <servlet>  
+        <servlet-name>percentDistribution</servlet-name>  
+        <servlet-class>percentDistribution</servlet-class>  
+    </servlet>  
+    
+    <servlet-mapping>  
+        <servlet-name>percentDistribution</servlet-name>  
+        <url-pattern>/percentDistribution</url-pattern>  
+    </servlet-mapping>  
     
     <servlet>  
         <servlet-name>pageMovieLinker</servlet-name>  

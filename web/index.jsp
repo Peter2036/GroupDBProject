@@ -24,7 +24,7 @@
 <script src="js/bootstrap.min.js"></script>
 <form name ="basicStatsButtons" action ="stats" method ="GET" enctype ="text/plain">
     <div style = "margin-top:-10px;margin-bottom:10px;border-color: orange;background-color:blue" align = "center">
-        <font color = "orange"><center><h3 style = "margin-top:10px">Get general database statistics</h3></font>
+        <font color = "orange"><center><h3 style = "margin-top:10px">Get info about data in this database</h3></font>
         <input type = "submit" style ="margin-bottom:20px;background-color:orange;color:blue" value = "Show">
     </div>
 </form>
