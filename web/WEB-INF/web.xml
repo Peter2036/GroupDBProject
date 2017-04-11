@@ -201,4 +201,40 @@
         <servlet-name>pageMovieLinker</servlet-name>
         <url-pattern>/pageMovieLinker</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>movieListStars</servlet-name>
+        <servlet-class>movieListStars</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>movieListStars</servlet-name>
+        <url-pattern>/movieListStars</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>movieListWriters</servlet-name>
+        <servlet-class>movieListWriters</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>movieListWriters</servlet-name>
+        <url-pattern>/movieListWriters</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>movieListDirectors</servlet-name>
+        <servlet-class>movieListDirectors</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>movieListDirectors</servlet-name>
+        <url-pattern>/movieListDirectors</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>debut</servlet-name>
+        <servlet-class>debut</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>debut</servlet-name>
+        <url-pattern>/debut</url-pattern>
+    </servlet-mapping>
 </web-app>
