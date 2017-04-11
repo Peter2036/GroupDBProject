@@ -21,7 +21,7 @@
 </head>
 <body style = "background-color:orange">
 <div style = "background-color:blue">
-<font color = "orange"><center><h1 style = "margin-top:0px;margin-bottom:-10px">Star Search</h1></font>
+<font color = "orange"><center><h1 style = "margin-top:0px;margin-bottom:-10px;margin-left:50px;">Star Search</h1></font>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>

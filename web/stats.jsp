@@ -21,7 +21,7 @@
 </head>
 <body style = "background-color:orange">
 <div style = "background-color:blue">
-<font color = "orange"><center><h1 style = "margin-top:0px;margin-bottom:-10px">Information about this database application</h1></font>
+<font color = "orange"><center><h1 style = "margin-top:0px;margin-bottom:-10px;margin-left:50px;">Information about data in this database application</h1></font>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
@@ -29,6 +29,24 @@
 <form name ="amountOfRecords" action ="records" method ="GET" enctype ="text/plain">
     <div style = "margin-top:-10px;margin-bottom:10px;border-color: orange;background-color:orange" align = "center">
         <font color = "blue"><center><h3 style = "margin-top:10px">Get amount of records in database tables</h3></font>
+        <input type = "submit" style ="margin-bottom:10px;background-color:blue;color:orange" value = "Show">
+    </div>
+</form>  
+<form name ="amountOfRecordsChart" action ="recordsChartGetter" method ="GET" enctype ="text/plain">
+    <div style = "margin-top:-10px;margin-bottom:10px;border-color: orange;background-color:orange" align = "center">
+        <font color = "blue"><center><h3 style = "margin-top:10px">Get amount of records in database as pie chart</h3></font>
+        <input type = "submit" style ="margin-bottom:10px;background-color:blue;color:orange" value = "Show">
+    </div>
+</form>  
+<form name ="query2" action ="actorsStarredIn10" method ="GET" enctype ="text/plain">
+    <div style = "margin-top:-10px;margin-bottom:10px;border-color: orange;background-color:orange" align = "center">
+        <font color = "blue"><center><h3 style = "margin-top:10px">Get actors who have only starred in movies with a rating of 10</h3></font>
+        <input type = "submit" style ="margin-bottom:10px;background-color:blue;color:orange" value = "Show">
+    </div>
+</form> 
+<form name ="query1" action ="first50rankedMovies" method ="GET" enctype ="text/plain">
+    <div style = "margin-top:-10px;margin-bottom:10px;border-color: orange;background-color:orange" align = "center">
+        <font color = "blue"><center><h3 style = "margin-top:10px">Get 50 highest ranked movies</h3></font>
         <input type = "submit" style ="margin-bottom:10px;background-color:blue;color:orange" value = "Show">
     </div>
 </form>  
