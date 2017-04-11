@@ -1,0 +1,16 @@
+//Gives the names of the stars, directors, and writers that a movie has, respectively.
+
+"select a.movie_ID, b.name as Stars "
++"from stars_in a, stars b "
++"where a.star_ID = b.star_ID "
++"and a.movie_ID = " + id;
+
+"select a.movie_ID, b.name as Directors "
++"from directs a, directors b "
++"where a.director_ID = b.director_ID "
++"and a.movie_ID = " + id;
+
+"select a.movie_ID, b.name as Writers "
++"from writes_for a, writers b "
++"where a.writer_ID = b.writer_ID "
++"and a.movie_ID = " + id;
