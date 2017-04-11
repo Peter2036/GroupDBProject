@@ -86,6 +86,25 @@
     </servlet-mapping>
     
     <servlet>
+        <servlet-name>yearCount</servlet-name>
+        <servlet-class>yearCount</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>yearCount</servlet-name>
+        <url-pattern>/yearCount</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>yearCountGetter</servlet-name>
+        <servlet-class>yearCountGetter</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>yearCountGetter</servlet-name>
+        <url-pattern>/yearCountGetter</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet>
         <servlet-name>home</servlet-name>
         <servlet-class>home</servlet-class>
     </servlet>
@@ -183,6 +202,62 @@
         <servlet-name>writerListDirectors</servlet-name>
         <url-pattern>/writerListDirectors</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>starSameHeight</servlet-name>
+        <servlet-class>starSameHeight</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>starSameHeight</servlet-name>
+        <url-pattern>/starSameHeight</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>writerSameHeight</servlet-name>
+        <servlet-class>writerSameHeight</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>writerSameHeight</servlet-name>
+        <url-pattern>/writerSameHeight</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>directorSameHeight</servlet-name>
+        <servlet-class>directorSameHeight</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>directorSameHeight</servlet-name>
+        <url-pattern>/directorSameHeight</url-pattern>
+    </servlet-mapping>
+    
+    
+     <servlet>
+        <servlet-name>starSameBday</servlet-name>
+        <servlet-class>starSameBday</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>starSameBday</servlet-name>
+        <url-pattern>/starSameBday</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>writerSameBday</servlet-name>
+        <servlet-class>writerSameBday</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>writerSameBday</servlet-name>
+        <url-pattern>/writerSameBday</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>directorSameBday</servlet-name>
+        <servlet-class>directorSameBday</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>directorSameBday</servlet-name>
+        <url-pattern>/directorSameBday</url-pattern>
+    </servlet-mapping>
+    
     
     <servlet>
         <servlet-name>percentDistribution</servlet-name>
