@@ -1,0 +1,21 @@
+
+
+//shows for individual ID, ppl who have the same heights
+select S2.name as Name
+from stars S, stars S2
+where S.star_ID <> S2.star_ID
+and S.height = S2.height
+and S.height != 'NULL'
+and S.name != S2.name
+and S.star_ID = 1668398;
+
+
+//same as above but for birthdays
+
+select S2.name as Name
+from stars S, stars S2
+where S.star_ID <> S2.star_ID
+and S.bday = S2.bday
+and S.bday != 'NULL'
+and S.name != S2.name
+and S.star_ID = 1024436;
