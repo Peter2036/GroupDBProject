@@ -20,14 +20,6 @@ import javax.servlet.*;
 import javax.servlet.http.*;  
 import javax.sql.DataSource;
 
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartUtilities;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.labels.PieSectionLabelGenerator;
-import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
-import org.jfree.chart.plot.PiePlot;
-import org.jfree.data.general.DefaultPieDataset;
-import org.jfree.data.jdbc.JDBCPieDataset;
 
 public class percentDistribution extends HttpServlet {
     
