@@ -1,0 +1,24 @@
+//Gives all the names of the stars whom a selected star has worked with.
+
+"select s1.star_ID as T1, b.name as Stars "
++"from stars_in s1, stars_in s2, stars b "
++"where s1.star_ID <> s2.star_ID "
++"and s1.movie_ID = s2.movie_ID "
++"and s2.star_ID = b.star_ID "
++"and s1.star_ID = " + id;
+
+//Gives all the names of the directors whom a selected star has worked with.
+
+"select s.star_ID as T1, b.name as Directors "
++"from stars_in s, directs d, directors b "
++"where s.movie_ID = d.movie_ID "
++"and d.director_ID = b.director_ID "
++"and s.star_ID = " + id;
+
+//Gives all the names of the writers whom a selected star has worked with.
+
+"select s.star_ID as T1, b.name as Writers "
++"from stars_in s, writes_for w, writers b "
++"where s.movie_ID = w.movie_ID "
++"and w.writer_ID = b.writer_ID "
++"and s.star_ID = " + id;
