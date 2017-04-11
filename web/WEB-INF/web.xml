@@ -75,6 +75,7 @@
         <servlet-name>top10Country</servlet-name>
         <url-pattern>/top10Country</url-pattern>
     </servlet-mapping>
+    
     <servlet>
         <servlet-name>top10CountryGetter</servlet-name>
         <servlet-class>top10CountryGetter</servlet-class>
@@ -83,6 +84,7 @@
         <servlet-name>top10CountryGetter</servlet-name>
         <url-pattern>/top10CountryGetter</url-pattern>
     </servlet-mapping>
+    
     <servlet>
         <servlet-name>home</servlet-name>
         <servlet-class>home</servlet-class>
@@ -91,6 +93,7 @@
         <servlet-name>home</servlet-name>
         <url-pattern>/home</url-pattern>
     </servlet-mapping>
+    
     <servlet>
         <servlet-name>pagePersonLinker</servlet-name>
         <servlet-class>pagePersonLinker</servlet-class>
@@ -99,6 +102,88 @@
         <servlet-name>pagePersonLinker</servlet-name>
         <url-pattern>/pagePersonLinker</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>starListStars</servlet-name>
+        <servlet-class>starListStars</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>starListStars</servlet-name>
+        <url-pattern>/starListStars</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>starListWriters</servlet-name>
+        <servlet-class>starListWriters</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>starListWriters</servlet-name>
+        <url-pattern>/starListWriters</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>starListDirectors</servlet-name>
+        <servlet-class>starListDirectors</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>starListDirectors</servlet-name>
+        <url-pattern>/starListDirectors</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>directorListStars</servlet-name>
+        <servlet-class>directorListStars</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>directorListStars</servlet-name>
+        <url-pattern>/directorListStars</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>directorListWriters</servlet-name>
+        <servlet-class>directorListWriters</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>directorListWriters</servlet-name>
+        <url-pattern>/directorListWriters</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>directorListDirectors</servlet-name>
+        <servlet-class>directorListDirectors</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>directorListDirectors</servlet-name>
+        <url-pattern>/directorListDirectors</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>writerListStars</servlet-name>
+        <servlet-class>writerListStars</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>writerListStars</servlet-name>
+        <url-pattern>/writerListStars</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>writerListWriters</servlet-name>
+        <servlet-class>writerListWriters</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>writerListWriters</servlet-name>
+        <url-pattern>/writerListWriters</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>writerListDirectors</servlet-name>
+        <servlet-class>writerListDirectors</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>writerListDirectors</servlet-name>
+        <url-pattern>/writerListDirectors</url-pattern>
+    </servlet-mapping>
+    
     <servlet>
         <servlet-name>percentDistribution</servlet-name>
         <servlet-class>percentDistribution</servlet-class>
@@ -107,6 +192,7 @@
         <servlet-name>percentDistribution</servlet-name>
         <url-pattern>/percentDistribution</url-pattern>
     </servlet-mapping>
+    
     <servlet>
         <servlet-name>pageMovieLinker</servlet-name>
         <servlet-class>pageMovieLinker</servlet-class>
