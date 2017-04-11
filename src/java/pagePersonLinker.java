@@ -181,9 +181,27 @@ public class pagePersonLinker extends HttpServlet {
         out.print("</div>");
         out.print("</form>");
 
+        out.print("<form name =\"writerSameHeight\" action =\"writerSameHeight\" method =\"GET\" enctype =\"text/plain\">");
+        out.print("<div style = \"margin-top:-10px;margin-bottom:10px;border-color: orange;background-color:orange\" align = \"center\">");
+        out.print("<font color = \"blue\"><h3 style = \"margin-top:10px\">Get list of people with same height</h3></font>");
+        out.print("<input type = \"submit\" style =\"margin-bottom:10px;background-color:blue;color:orange\" value = \"Show\">");
+        out.print("<input type = \"hidden\" name = \"id\" value = " + id + " \" >");
+        out.print("<input type = \"hidden\" name = \"type\" value = " + type + " \" >");
+        out.print("</div>");
+        out.print("</form>");
+        
+        out.print("<form name =\"writerSameBday\" action =\"writerSameBday\" method =\"GET\" enctype =\"text/plain\">");
+        out.print("<div style = \"margin-top:-10px;margin-bottom:10px;border-color: orange;background-color:orange\" align = \"center\">");
+        out.print("<font color = \"blue\"><h3 style = \"margin-top:10px\">Get list of people with same birthday</h3></font>");
+        out.print("<input type = \"submit\" style =\"margin-bottom:10px;background-color:blue;color:orange\" value = \"Show\">");
+        out.print("<input type = \"hidden\" name = \"id\" value = " + id + " \" >");
+        out.print("<input type = \"hidden\" name = \"type\" value = " + type + " \" >");
+        out.print("</div>");
+        out.print("</form>");
+        
         out.print("<form name =\"percentDistributionGetter\" action =\"percentDistribution\" method =\"GET\" enctype =\"text/plain\">");
         out.print("<div style = \"margin-top:-10px;margin-bottom:10px;border-color: orange;background-color:orange\" align = \"center\">");
-        out.print("<font color = \"blue\"><h3 style = \"margin-top:10px\">Get percentage distribution of rating for movies starred in</h3></font>");
+        out.print("<font color = \"blue\"><h3 style = \"margin-top:10px\">Get percentage distribution of rating for written</h3></font>");
         out.print("<input type = \"submit\" style =\"margin-bottom:10px;background-color:blue;color:orange\" value = \"Show\">");
         out.print("<input type = \"hidden\" name = \"id\" value = " + id + " \" >");
         out.print("<input type = \"hidden\" name = \"type\" value = " + type + " \" >");
@@ -308,6 +326,24 @@ public class pagePersonLinker extends HttpServlet {
         out.print("<form name =\"directorListDirectors\" action =\"directorListDirectors\" method =\"GET\" enctype =\"text/plain\">");
         out.print("<div style = \"margin-top:-10px;margin-bottom:10px;border-color: orange;background-color:orange\" align = \"center\">");
         out.print("<font color = \"blue\"><h3 style = \"margin-top:10px\">Get list of other directors worked with</h3></font>");
+        out.print("<input type = \"submit\" style =\"margin-bottom:10px;background-color:blue;color:orange\" value = \"Show\">");
+        out.print("<input type = \"hidden\" name = \"id\" value = " + id + " \" >");
+        out.print("<input type = \"hidden\" name = \"type\" value = " + type + " \" >");
+        out.print("</div>");
+        out.print("</form>");
+        
+        out.print("<form name =\"directorSameHeight\" action =\"directorSameHeight\" method =\"GET\" enctype =\"text/plain\">");
+        out.print("<div style = \"margin-top:-10px;margin-bottom:10px;border-color: orange;background-color:orange\" align = \"center\">");
+        out.print("<font color = \"blue\"><h3 style = \"margin-top:10px\">Get list of people with same height</h3></font>");
+        out.print("<input type = \"submit\" style =\"margin-bottom:10px;background-color:blue;color:orange\" value = \"Show\">");
+        out.print("<input type = \"hidden\" name = \"id\" value = " + id + " \" >");
+        out.print("<input type = \"hidden\" name = \"type\" value = " + type + " \" >");
+        out.print("</div>");
+        out.print("</form>");
+        
+        out.print("<form name =\"directorSameBday\" action =\"directorSameBday\" method =\"GET\" enctype =\"text/plain\">");
+        out.print("<div style = \"margin-top:-10px;margin-bottom:10px;border-color: orange;background-color:orange\" align = \"center\">");
+        out.print("<font color = \"blue\"><h3 style = \"margin-top:10px\">Get list of people with same birthday</h3></font>");
         out.print("<input type = \"submit\" style =\"margin-bottom:10px;background-color:blue;color:orange\" value = \"Show\">");
         out.print("<input type = \"hidden\" name = \"id\" value = " + id + " \" >");
         out.print("<input type = \"hidden\" name = \"type\" value = " + type + " \" >");
@@ -448,9 +484,27 @@ public class pagePersonLinker extends HttpServlet {
         out.print("</div>");
         out.print("</form>");
         
+        out.print("<form name =\"starSameHeight\" action =\"starSameHeight\" method =\"GET\" enctype =\"text/plain\">");
+        out.print("<div style = \"margin-top:-10px;margin-bottom:10px;border-color: orange;background-color:orange\" align = \"center\">");
+        out.print("<font color = \"blue\"><h3 style = \"margin-top:10px\">Get list of people with same height</h3></font>");
+        out.print("<input type = \"submit\" style =\"margin-bottom:10px;background-color:blue;color:orange\" value = \"Show\">");
+        out.print("<input type = \"hidden\" name = \"id\" value = " + id + " \" >");
+        out.print("<input type = \"hidden\" name = \"type\" value = " + type + " \" >");
+        out.print("</div>");
+        out.print("</form>");
+        
+        out.print("<form name =\"starSameBday\" action =\"starSameBday\" method =\"GET\" enctype =\"text/plain\">");
+        out.print("<div style = \"margin-top:-10px;margin-bottom:10px;border-color: orange;background-color:orange\" align = \"center\">");
+        out.print("<font color = \"blue\"><h3 style = \"margin-top:10px\">Get list of people with same birthday</h3></font>");
+        out.print("<input type = \"submit\" style =\"margin-bottom:10px;background-color:blue;color:orange\" value = \"Show\">");
+        out.print("<input type = \"hidden\" name = \"id\" value = " + id + " \" >");
+        out.print("<input type = \"hidden\" name = \"type\" value = " + type + " \" >");
+        out.print("</div>");
+        out.print("</form>");
+        
         out.print("<form name =\"percentDistribution\" action =\"percentDistribution\" method =\"GET\" enctype =\"text/plain\">");
         out.print("<div style = \"margin-top:-10px;margin-bottom:10px;border-color: orange;background-color:orange\" align = \"center\">");
-        out.print("<font color = \"blue\"><h3 style = \"margin-top:10px\">Get percentage distribution of rating for movies written</h3></font>");
+        out.print("<font color = \"blue\"><h3 style = \"margin-top:10px\">Get percentage distribution of rating for movies starred in</h3></font>");
         out.print("<input type = \"submit\" style =\"margin-bottom:10px;background-color:blue;color:orange\" value = \"Show\">");
         out.print("<input type = \"hidden\" name = \"id\" value = " + id + " \" >");
         out.print("<input type = \"hidden\" name = \"type\" value = " + type + " \" >");
