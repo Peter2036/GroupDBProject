@@ -1,0 +1,18 @@
+//Gives the list of movies a star, director, and writer have worked on, respectively.
+
+"select title "
++"from movies m, stars_in s "
++"where m.movie_ID = s.movie_ID "
++"and s.star_ID = " + id;
+
+
+"select title "
++"from movies m, directs d "
++"where m.movie_ID = d.movie_ID "
++"and d.director_ID = " + id;
+
+
+"select title "
++"from movies m, writes_for w "
++"where m.movie_ID = w.movie_ID "
++"and w.writer_ID = " + id;
