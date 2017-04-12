@@ -154,6 +154,15 @@ public class pagePersonLinker extends HttpServlet {
         
         out.print("</div>");
         
+        out.print("<form name =\"writerListMovies\" action =\"writerListMovies\" method =\"GET\" enctype =\"text/plain\">");
+        out.print("<div style = \"margin-top:-10px;margin-bottom:10px;border-color: orange;background-color:orange\" align = \"center\">");
+        out.print("<font color = \"blue\"><h3 style = \"margin-top:10px\">Get list of movies writer worked on</h3></font>");
+        out.print("<input type = \"submit\" style =\"margin-bottom:10px;background-color:blue;color:orange\" value = \"Show\">");
+        out.print("<input type = \"hidden\" name = \"id\" value = " + id + " \" >");
+        out.print("<input type = \"hidden\" name = \"type\" value = " + type + " \" >");
+        out.print("</div>");
+        out.print("</form>");
+        
         out.print("<form name =\"writerListStars\" action =\"writerListStars\" method =\"GET\" enctype =\"text/plain\">");
         out.print("<div style = \"margin-top:-10px;margin-bottom:10px;border-color: orange;background-color:orange\" align = \"center\">");
         out.print("<font color = \"blue\"><h3 style = \"margin-top:10px\">Get list of stars worked with</h3></font>");
@@ -304,6 +313,15 @@ public class pagePersonLinker extends HttpServlet {
         out.print("<h4 style = color:orange> Amount of movies worked in: " + resultSet.getString("total") + "</h1>");
         
         out.print("</div>");
+        
+        out.print("<form name =\"directorListMovies\" action =\"directorListMovies\" method =\"GET\" enctype =\"text/plain\">");
+        out.print("<div style = \"margin-top:-10px;margin-bottom:10px;border-color: orange;background-color:orange\" align = \"center\">");
+        out.print("<font color = \"blue\"><h3 style = \"margin-top:10px\">Get list of movies director directed</h3></font>");
+        out.print("<input type = \"submit\" style =\"margin-bottom:10px;background-color:blue;color:orange\" value = \"Show\">");
+        out.print("<input type = \"hidden\" name = \"id\" value = " + id + " \" >");
+        out.print("<input type = \"hidden\" name = \"type\" value = " + type + " \" >");
+        out.print("</div>");
+        out.print("</form>");
         
         out.print("<form name =\"directorListStars\" action =\"directorListStars\" method =\"GET\" enctype =\"text/plain\">");
         out.print("<div style = \"margin-top:-10px;margin-bottom:10px;border-color: orange;background-color:orange\" align = \"center\">");
@@ -456,6 +474,15 @@ public class pagePersonLinker extends HttpServlet {
         
        
         out.print("</div>");
+        
+        out.print("<form name =\"starListMovies\" action =\"starListMovies\" method =\"GET\" enctype =\"text/plain\">");
+        out.print("<div style = \"margin-top:-10px;margin-bottom:10px;border-color: orange;background-color:orange\" align = \"center\">");
+        out.print("<font color = \"blue\"><h3 style = \"margin-top:10px\">Get list of movies starred in</h3></font>");
+        out.print("<input type = \"submit\" style =\"margin-bottom:10px;background-color:blue;color:orange\" value = \"Show\">");
+        out.print("<input type = \"hidden\" name = \"id\" value = " + id + " \" >");
+        out.print("<input type = \"hidden\" name = \"type\" value = " + type + " \" >");
+        out.print("</div>");
+        out.print("</form>");
         
         out.print("<form name =\"starListStars\" action =\"starListStars\" method =\"GET\" enctype =\"text/plain\">");
         out.print("<div style = \"margin-top:-10px;margin-bottom:10px;border-color: orange;background-color:orange\" align = \"center\">");

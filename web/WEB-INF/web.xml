@@ -95,6 +95,15 @@
     </servlet-mapping>
     
     <servlet>
+        <servlet-name>top50participation</servlet-name>
+        <servlet-class>top50participation</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>top50participation</servlet-name>
+        <url-pattern>/top50participation</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
         <servlet-name>yearCountGetter</servlet-name>
         <servlet-class>yearCountGetter</servlet-class>
     </servlet>
@@ -121,6 +130,39 @@
         <servlet-name>pagePersonLinker</servlet-name>
         <url-pattern>/pagePersonLinker</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>starListMovies</servlet-name>
+        <servlet-class>starListMovies</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>starListMovies</servlet-name>
+        <url-pattern>/starListMovies</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>directorListMovies</servlet-name>
+        <servlet-class>directorListMovies</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>directorListMovies</servlet-name>
+        <url-pattern>/directorListMovies</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>writerListMovies</servlet-name>
+        <servlet-class>writerListMovies</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>writerListMovies</servlet-name>
+        <url-pattern>/writerListMovies</url-pattern>
+    </servlet-mapping>
+    
+    
+    
+    
+    
+    
     
     <servlet>
         <servlet-name>starListStars</servlet-name>

@@ -8,6 +8,7 @@
  *
  * @author peter
  */
+
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.io.*;  
@@ -20,7 +21,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;  
 import javax.sql.DataSource;
 
-public class directorSameBday extends HttpServlet {
+public class writerListMovies extends HttpServlet {
     @Override
     public void doGet(
             HttpServletRequest request,
@@ -36,13 +37,13 @@ public class directorSameBday extends HttpServlet {
         rd = request.getRequestDispatcher("pagePersonLinker?id=" + id + "&type=" + type);
         rd.include(request,response);
         try {
-            listBday(type, out, id);
+            listMovies(type, out, id);
         } catch (SQLException ex) {
             Logger.getLogger(percentDistribution.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    private void listBday(String type, PrintWriter out, String id) throws SQLException{
+    private void listMovies(String type, PrintWriter out, String id) throws SQLException{
         InitialContext initialContext = null;
         try {
             initialContext = new InitialContext();
@@ -63,29 +64,10 @@ public class directorSameBday extends HttpServlet {
         }
         
         
-       String query = "(select D2.name as Directors\n" +
-                        "from directors D, directors D2\n" +
-                        "where D.director_ID <> D2.director_ID\n" +
-                        "and D.bday = D2.bday\n" +
-                        "and D.bday != 'NULL'\n" +
-                        "and D.name != D2.name\n" +
-                        "and D.director_ID = " + id + ")\n" +
-                        "\n" +
-                        "UNION\n" +
-                        "\n" +
-                        "(select W.name as Writers\n" +
-                        "from directors D, writers W\n" +
-                        "where D.bday = W.bday\n" +
-                        "and D.bday != 'NULL'\n" +
-                        "and D.director_ID = " + id + ")\n" +
-                        "\n" +
-                        "UNION\n" +
-                        "\n" +
-                        "(select S.name as Stars\n" +
-                        "from directors D, stars S\n" +
-                        "where D.bday = S.bday\n" +
-                        "and D.bday != 'NULL'\n" +
-                        "and D.director_ID = " + id + ")";
+       String query = "select title "
+                    +"from movies m, writes_for w "
+                    +"where m.movie_ID = w.movie_ID "
+                    +"and w.writer_ID = " + id;
        
         ResultSet resultSet = null;
         PreparedStatement statement = null; 
@@ -93,11 +75,11 @@ public class directorSameBday extends HttpServlet {
         
         resultSet = statement.executeQuery();
         out.print("<div align = \"center\" style = \"background-color:blue\">");
-        out.print("<select size = \"10\">");
+        out.print("<select size = \"5\">");
         int i = 0;
         while(resultSet.next()){
             out.print("<option value = \"" + i + "\"> + "
-                + resultSet.getString("Directors")
+                + resultSet.getString("title")
                 + "</option>" );
             i++;
         }
